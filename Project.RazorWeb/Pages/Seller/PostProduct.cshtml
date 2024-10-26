@@ -1,0 +1,313 @@
+﻿@page "/Seller/PostProduct"
+@model Project.RazorWeb.Pages.Seller.PostProductModel
+@{
+    ViewData["Title"] = "Add New Product";
+}
+
+<h2>Add New Product</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Product.ProductName" class="form-label">Product Name</label>
+        <input asp-for="Product.ProductName" class="form-control" placeholder="Enter product name" />
+        <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.Description" class="form-label">Description</label>
+        <textarea asp-for="Product.Description" class="form-control" placeholder="Enter description"></textarea>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.Quantity" class="form-label">Quantity</label>
+        <input asp-for="Product.Quantity" type="number" class="form-control" />
+        <span asp-validation-for="Product.Quantity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.BrandName" class="form-label">Brand Name</label>
+        <input asp-for="Product.BrandName" class="form-control" placeholder="Enter brand name" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.CategoryId" class="form-label">Category</label>
+        <select asp-for="Product.CategoryId" asp-items="@(new SelectList(Model.Categories, "CategoryId", "CategoryName"))" class="form-control">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+    </div>
+
+    <div id="imagePreview" class="form-group mt-3">
+        <label for="images" class="form-label">Product Images</label>
+        <input type="file" name="Product.Images" id="imageInput" class="form-control" multiple accept=".jpg,.jpeg,.png" />
+        <div id="imageGrid" class="image-grid mt-3"></div>
+    </div>
+
+    <!-- Full-Screen Image Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close">&times;</span>
+        <div class="modal-image-container">
+            <img class="modal-content" id="fullScreenImage">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4">Add Product</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    /* General form container styling */
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Title styling */
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+        font-family: Arial, sans-serif;
+        font-weight: bold;
+    }
+
+    /* Form field styling */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Label styling */
+    .form-label {
+        font-weight: bold;
+        color: #555;
+        font-size: 0.95rem;
+        display: inline-block;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Input, textarea, and select field styling */
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        transition: border-color 0.3s ease;
+    }
+
+        /* Focus state for input fields */
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+            outline: none;
+        }
+
+    /* Textarea styling for multiline input */
+    textarea.form-control {
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    /* Error message styling */
+    .text-danger {
+        font-size: 0.85rem;
+        color: #e74c3c;
+    }
+
+    /* Submit button styling */
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        /* Submit button hover effect */
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+    /* Image preview grid styling */
+    .image-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .image-grid-item {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-grid-item:hover {
+            transform: scale(1.05);
+        }
+
+    /* Remove button styling */
+    .remove-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+
+    /* Modal styling */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-image-container {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .modal-content {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        border-radius: 5px;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+</style>
+
+<script>
+
+    const modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+
+    // Handle image selection and preview
+    document.getElementById('imageInput').addEventListener('change', function (event) {
+        const files = event.target.files;
+        const imageGrid = document.getElementById('imageGrid');
+        imageGrid.innerHTML = ''; // Clear previous previews
+
+        const validExtensions = ['.jpg', '.jpeg', '.png'];
+
+        // Check if more than 10 images are selected
+        if (files.length > 10) {
+            alert('You can only select up to 10 images.');
+            event.target.value = ''; // Clear the file input
+            return;
+        }
+
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const fileSizeInMB = file.size / 1024 / 1024;
+            const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
+
+            // Check file type and size
+            if (!validExtensions.includes(fileExtension)) {
+                alert('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
+                continue;
+            }
+            if (fileSizeInMB > 10) {
+                alert('File size cannot exceed 10MB.');
+                continue;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imageContainer = document.createElement('div');
+                imageContainer.className = 'image-grid-item';
+
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.onclick = function () {
+                    openModal(img.src);
+                };
+
+                const removeButton = document.createElement('button');
+                removeButton.className = 'remove-button';
+                removeButton.innerHTML = '&times;';
+                removeButton.onclick = function (event) {
+                    event.stopPropagation();
+                    imageGrid.removeChild(imageContainer);
+                };
+
+                imageContainer.appendChild(img);
+                imageContainer.appendChild(removeButton);
+                imageGrid.appendChild(imageContainer);
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Function to open the modal with the selected image
+    function openModal(src) {
+        const modal = document.getElementById('imageModal');
+        const fullScreenImage = document.getElementById('fullScreenImage');
+        fullScreenImage.src = src;
+        modal.style.display = 'flex';
+    }
+
+    // Function to close the modal
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+    }
+
+    // Ensure modal only closes when clicking on the close button or outside the image
+    document.getElementById('imageModal').addEventListener('click', function (event) {
+        if (event.target === this) {
+            closeModal();
+        }
+    });
+
+
+</script>

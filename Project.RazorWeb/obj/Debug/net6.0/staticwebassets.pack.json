@@ -1,0 +1,745 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\Project.RazorWeb.bundle.scp.css",
+      "PackagePath": "staticwebassets\\Project.RazorWeb.bundle.scp.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\193160_01_sv01.jpg",
+      "PackagePath": "staticwebassets\\Assets\\193160_01_sv01.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\800px-Ebay_2012_(logo).svg.png.crdownload",
+      "PackagePath": "staticwebassets\\Assets\\800px-Ebay_2012_(logo).svg.png.crdownload"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\GooglePay_Lockup.max-1200x1200-1.webp",
+      "PackagePath": "staticwebassets\\Assets\\GooglePay_Lockup.max-1200x1200-1.webp"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\Visa.svg.webp",
+      "PackagePath": "staticwebassets\\Assets\\Visa.svg.webp"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\danger.png",
+      "PackagePath": "staticwebassets\\Assets\\danger.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\favicon.ico",
+      "PackagePath": "staticwebassets\\Assets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images.png",
+      "PackagePath": "staticwebassets\\Assets\\images.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\1.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\1.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\2.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\2.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\3.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\3.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\EcoFlow.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\EcoFlow.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\bags.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\bags.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\bell .svg",
+      "PackagePath": "staticwebassets\\Assets\\images\\bell .svg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\box.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\box.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\campus.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\campus.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\cards.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\cards.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\cart.svg",
+      "PackagePath": "staticwebassets\\Assets\\images\\cart.svg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\collections.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\collections.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\crocs.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\crocs.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\dior.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\dior.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\ebay.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\ebay.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\electro.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\electro.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\fashion.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\fashion.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\health.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\health.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\hermasbag.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\hermasbag.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\home.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\home.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\industrial.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\industrial.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\iphone.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\iphone.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\laptop.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\laptop.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\motors.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\motors.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\sale.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\sale.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\save.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\save.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\search.svg",
+      "PackagePath": "staticwebassets\\Assets\\images\\search.svg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\sneaker.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\sneaker.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\sports.png",
+      "PackagePath": "staticwebassets\\Assets\\images\\sports.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\tire.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\tire.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\vacuum-cleaner.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\vacuum-cleaner.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\images\\watch.jpg",
+      "PackagePath": "staticwebassets\\Assets\\images\\watch.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\mastercard-logo-01.png",
+      "PackagePath": "staticwebassets\\Assets\\mastercard-logo-01.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\paypal.png",
+      "PackagePath": "staticwebassets\\Assets\\paypal.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\screenshot.png",
+      "PackagePath": "staticwebassets\\Assets\\screenshot.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\shopping-cart.png",
+      "PackagePath": "staticwebassets\\Assets\\shopping-cart.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\Assets\\watch.png",
+      "PackagePath": "staticwebassets\\Assets\\watch.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\Homepage.css",
+      "PackagePath": "staticwebassets\\css\\Homepage.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\ProductDetails.css",
+      "PackagePath": "staticwebassets\\css\\ProductDetails.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-icons.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-icons.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\fonts\\bootstrap-icons.woff",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\fonts\\bootstrap-icons.woff"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\bootstrap\\fonts\\bootstrap-icons.woff2",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\fonts\\bootstrap-icons.woff2"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\cart.css",
+      "PackagePath": "staticwebassets\\css\\cart.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\checkout.css",
+      "PackagePath": "staticwebassets\\css\\checkout.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\dashboard.css",
+      "PackagePath": "staticwebassets\\css\\dashboard.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\final.css",
+      "PackagePath": "staticwebassets\\css\\final.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\login-styles.css",
+      "PackagePath": "staticwebassets\\css\\login-styles.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\productList.css",
+      "PackagePath": "staticwebassets\\css\\productList.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\register-styles.css",
+      "PackagePath": "staticwebassets\\css\\register-styles.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\Homepage.js",
+      "PackagePath": "staticwebassets\\js\\Homepage.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\ProductDetails.mjs",
+      "PackagePath": "staticwebassets\\js\\ProductDetails.mjs"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\bootstrap\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\js\\bootstrap\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\cart.js",
+      "PackagePath": "staticwebassets\\js\\cart.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\checkout.js",
+      "PackagePath": "staticwebassets\\js\\checkout.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\dashboard.js",
+      "PackagePath": "staticwebassets\\js\\dashboard.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\displayPurchaseProducts.js",
+      "PackagePath": "staticwebassets\\js\\displayPurchaseProducts.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\displayWatchlistProducts.js",
+      "PackagePath": "staticwebassets\\js\\displayWatchlistProducts.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\fetch.js",
+      "PackagePath": "staticwebassets\\js\\fetch.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\final.js",
+      "PackagePath": "staticwebassets\\js\\final.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\login.js",
+      "PackagePath": "staticwebassets\\js\\login.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\password-entry.js",
+      "PackagePath": "staticwebassets\\js\\password-entry.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\productList.js",
+      "PackagePath": "staticwebassets\\js\\productList.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\register.js",
+      "PackagePath": "staticwebassets\\js\\register.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\js\\site.js",
+      "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\LICENSE",
+      "PackagePath": "staticwebassets\\lib\\bootstrap"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
+      "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation\\LICENSE.md",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\LICENSE.md"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation\\dist\\additional-methods.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\additional-methods.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery-validation\\dist\\jquery.validate.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery-validation\\dist\\jquery.validate.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery\\LICENSE.txt",
+      "PackagePath": "staticwebassets\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery\\dist\\jquery.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.js",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.js"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
+      "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\Screenshot 2024-07-16 100630 - Copy.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-07-16 100630 - Copy.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\Screenshot 2024-07-16 100630.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-07-16 100630.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\Screenshot 2024-07-16 100713.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-07-16 100713.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\Screenshot 2024-07-16 131157.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-07-16 131157.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\Screenshot 2024-07-16 221138.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-07-16 221138.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\Screenshot 2024-07-16 233422.png",
+      "PackagePath": "staticwebassets\\uploads\\Screenshot 2024-07-16 233422.png"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\itsme.jpg",
+      "PackagePath": "staticwebassets\\uploads\\itsme.jpg"
+    },
+    {
+      "Id": "D:\\SE1745\\Final_Project_Prn221\\Project.RazorWeb\\wwwroot\\uploads\\truong.jpg",
+      "PackagePath": "staticwebassets\\uploads\\truong.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.Project.RazorWeb.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.Project.RazorWeb.props",
+      "PackagePath": "build\\Project.RazorWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.Project.RazorWeb.props",
+      "PackagePath": "buildMultiTargeting\\Project.RazorWeb.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.Project.RazorWeb.props",
+      "PackagePath": "buildTransitive\\Project.RazorWeb.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

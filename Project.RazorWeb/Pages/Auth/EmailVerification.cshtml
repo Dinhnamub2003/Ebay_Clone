@@ -1,0 +1,17 @@
+﻿@page "/auth/verify-email"
+@model Project.RazorWeb.Pages.Auth.EmailVerificationModel
+
+@{
+    ViewData["Title"] = "Xác Minh Email";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-info">
+        @Model.Message
+    </div>
+}
+
+<p>Click the verification link sent to your email to complete your account verification.</p>
