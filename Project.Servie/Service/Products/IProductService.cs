@@ -10,5 +10,9 @@ namespace Project.Servie.Service.Products
         Task SaveProductImageAsync(int productId, string imageUrl);
         Task<ProductDetailViewModel> GetProductWithImagesAsync(int productId);
         Task<List<string>> ValidateAndSaveImagesAsync(int productId, List<IFormFile> images);
+        Task<List<ProductViewModel>> GetAllProductsByCategoryAsync(int categoryId);
+        Task<List<ProductViewModel>> GetAllProducts();
+        Task<List<ProductViewModel>> SearchProducts(string name);
+        Task<List<ProductViewModel>> SearchProductsWithCategory(string name, int categoryId);
     }
 }

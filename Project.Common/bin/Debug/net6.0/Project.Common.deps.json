@@ -556,7 +556,10 @@
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {
-          "Project.Data.dll": {}
+          "Project.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Project.Model/1.0.0": {
@@ -564,7 +567,10 @@
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0"
         },
         "runtime": {
-          "Project.Model.dll": {}
+          "Project.Model.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

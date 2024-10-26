@@ -103,5 +103,85 @@ namespace Project.Servie.Service.Products
             return savedImageUrls;
         }
 
+        public async Task<List<ProductViewModel>> GetAllProductsByCategoryAsync(int categoryId)
+        {
+            var products = await _unitOfWork.ProductRepository.GetQuery()
+                .Where(p => p.CategoryId == categoryId)
+                .Select(p => new ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Description = p.Description,
+                    Quantity = p.Quantity,
+                    BrandName = p.BrandName,
+                    CreatedAt = p.CreatedAt,
+                    ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(), 
+                    CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
+        
+
+        public async Task<List<ProductViewModel>> GetAllProducts()
+        {
+            var products = await _unitOfWork.ProductRepository.GetQuery()
+                    .Select(p => new ProductViewModel
+                    {
+                        ProductId = p.ProductId,
+                        ProductName = p.ProductName,
+                        Description = p.Description,
+                        Quantity = p.Quantity,
+                        BrandName = p.BrandName,
+                        CreatedAt = p.CreatedAt,
+                        ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
+                        CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
+                    })
+                    .ToListAsync();
+
+            return products;
+        }
+
+        public async Task<List<ProductViewModel>> SearchProducts(string name)
+        {
+            var products = await _unitOfWork.ProductRepository.GetQuery()
+                .Where(p => p.ProductName.Contains(name)) 
+                .Select(p => new ProductViewModel
+                {
+                    ProductId = p.ProductId,
+                    ProductName = p.ProductName,
+                    Description = p.Description,
+                    Quantity = p.Quantity,
+                    BrandName = p.BrandName,
+                    CreatedAt = p.CreatedAt,
+                    ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
+                    CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
+        public async Task<List<ProductViewModel>> SearchProductsWithCategory(string name, int categoryId)
+        {
+            var products = await _unitOfWork.ProductRepository.GetQuery()
+                 .Where(p => p.ProductName.Contains(name) && p.CategoryId == categoryId)
+                    .Select(p => new ProductViewModel
+                    {
+                        ProductId = p.ProductId,
+                        ProductName = p.ProductName,
+                        Description = p.Description,
+                        Quantity = p.Quantity,
+                        BrandName = p.BrandName,
+                        CreatedAt = p.CreatedAt,
+                        ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
+                        CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
+                    })
+                    .ToListAsync();
+
+            return products;
+        }
     }
 }

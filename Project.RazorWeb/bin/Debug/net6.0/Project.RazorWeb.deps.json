@@ -1617,7 +1617,10 @@
           "Project.Model": "1.0.0"
         },
         "runtime": {
-          "Project.Bussiness.dll": {}
+          "Project.Bussiness.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Project.Common/1.0.0": {
@@ -1627,7 +1630,10 @@
           "Project.Model": "1.0.0"
         },
         "runtime": {
-          "Project.Common.dll": {}
+          "Project.Common.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Project.Data/1.0.0": {
@@ -1638,7 +1644,10 @@
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {
-          "Project.Data.dll": {}
+          "Project.Data.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Project.Model/1.0.0": {
@@ -1646,7 +1655,10 @@
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0"
         },
         "runtime": {
-          "Project.Model.dll": {}
+          "Project.Model.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       },
       "Project.Servie/1.0.0": {
@@ -1662,7 +1674,10 @@
           "SixLabors.ImageSharp.Drawing": "2.1.4"
         },
         "runtime": {
-          "Project.Servie.dll": {}
+          "Project.Servie.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
         }
       }
     }

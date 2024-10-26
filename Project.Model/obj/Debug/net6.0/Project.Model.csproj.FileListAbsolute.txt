@@ -10,3 +10,16 @@ D:\SE1745\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\refint\Project.Mod
 D:\SE1745\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.pdb
 D:\SE1745\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\ref\Project.Model.dll
 D:\SE1745\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\bin\Debug\net6.0\Project.Model.deps.json
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\bin\Debug\net6.0\Project.Model.dll
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\bin\Debug\net6.0\Project.Model.pdb
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.csproj.AssemblyReference.cache
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.AssemblyInfoInputs.cache
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.AssemblyInfo.cs
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.sourcelink.json
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.dll
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\refint\Project.Model.dll
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\Project.Model.pdb
+C:\Users\Admin\Desktop\Final_Project_Prn221\Project.Model\obj\Debug\net6.0\ref\Project.Model.dll

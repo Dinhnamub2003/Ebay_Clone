@@ -9,6 +9,7 @@ using Project.Servie.Service.Auth;
 using System.Text;
 using Project.Servie.Service.Products;
 using Project.Servie.Service.Categories;
+using Project.Servie.Service.Cart;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<ICartService, CartService>();
 
 
 
