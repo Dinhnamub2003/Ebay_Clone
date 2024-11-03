@@ -9,7 +9,7 @@ using Project.Servie.Service.Auth;
 using System.Text;
 using Project.Servie.Service.Products;
 using Project.Servie.Service.Categories;
-using Project.Servie.Service.Cart;
+using Project.Servie.Service.Carts;
 
 var builder = WebApplication.CreateBuilder(args);
 
