@@ -9,7 +9,14 @@ using Project.Servie.Service.Auth;
 using System.Text;
 using Project.Servie.Service.Products;
 using Project.Servie.Service.Categories;
-using Project.Servie.Service.Carts;
+using Project.Service.Service.Carts;
+using Project.Service.Service.Orders;
+using Project.Service.Service.Account;
+using Project.Servie.Service.VnPay;
+using Project.Service.Service.Wallets;
+using Project.Service.Service.Order;
+using Project.Service.Service.VnPay;
+using Project.EventRazor.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
