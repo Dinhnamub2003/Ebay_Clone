@@ -8,8 +8,10 @@ namespace Project.Data.Models
         public User()
         {
             Carts = new HashSet<Cart>();
+            Notifications = new HashSet<Notification>();
             Orders = new HashSet<Order>();
             Payments = new HashSet<Payment>();
+            Products = new HashSet<Product>();
             Reviews = new HashSet<Review>();
         }
 
@@ -31,9 +33,12 @@ namespace Project.Data.Models
         public bool? IsDeleted { get; set; }
 
         public virtual Role? Role { get; set; }
+        public virtual Wallet? Wallet { get; set; }
         public virtual ICollection<Cart> Carts { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
     }
 }

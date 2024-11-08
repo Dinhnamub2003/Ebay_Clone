@@ -1,19 +1,21 @@
-﻿using Project.Model.CartModel;
-using Project.Model.CategoryModel;
-using Project.Model.ProductModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Project.Data.Models;
+using Project.Model.CartModel;
 
-namespace Project.Servie.Service.Carts
+namespace Project.Service.Service.Carts
 {
     public interface ICartService
     {
-        Task<int> AddToCart(CartViewModel model);
-        Task<bool> UpdateCartAsync(CartViewModel model);
-        Task<bool> DeleteCartAsync(int cartId);
+        Task<int> AddToCart(ViewCreateCartModel model);
+        Task<bool> UpdateCartAsync(Cart model);
+        Task<bool> DeleteCartAsync(int cartId, int userId);
         Task<List<CartViewModel>> GetCartByUserIdAsync(int userId);
-    }
+        Task<bool> ClearCartAsync(int userId);
+
+		Task<Cart> GetCartItemByIdAsync(int cartId);
+
+		Task<Cart> GetCartItemByProductIdAsync(int cartId, int productId);
+
+
+	}
 }

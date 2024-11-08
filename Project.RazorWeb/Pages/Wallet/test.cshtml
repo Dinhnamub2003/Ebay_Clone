@@ -1,0 +1,1387 @@
+﻿@page "/test/{id}"
+@model Project.RazorWeb.Pages.Wallet.testModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+   <style>
+       :root {
+  /*  Primary */
+  --orange: hsl(26, 100%, 55%);
+  --pale-orange: hsl(25, 100%, 94%);
+
+  /* Neutral */
+
+  --very-dark-blue: hsl(220, 13%, 13%);
+  --dark-grayish-blue: hsl(219, 9%, 45%);
+  --grayish-blue: hsl(220, 14%, 75%);
+  --light-grayish-blue: hsl(223, 64%, 98%);
+  --white: hsl(0, 0%, 100%);
+  /* with 75% opacity for lightbox background */
+  --black: hsl(0, 0%, 0%);
+
+  /* Pseudo element txt */
+  --pseudo-text: "0";
+}
+
+
+
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+.interaction-buttons span i{
+  color :wheat;
+}
+
+.action-buttons div span i{
+  color :wheat;
+}
+/*/////////////
+Main CSS
+ //////////////*/
+
+body {
+  
+  background: darkgray;
+
+  font-family: "Kumbh Sans", sans-serif;
+  position: relative;
+}
+
+.body-wrapper {
+  position: absolute;
+  z-index: 50;
+}
+
+.head {
+  max-width: 80%;
+  padding-top: 5rem;
+  margin: 0 auto 15rem;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 65px;
+}
+
+.head::after {
+  content: "";
+  height: 0.1px;
+  width: 100%;
+  background-color: var(--grayish-blue);
+  position: absolute;
+  bottom: -5rem;
+  left: 0;
+  margin-top: 5rem;
+}
+
+.head-lft {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.head-lft__btn {
+  display: none;
+  padding-top: 0.9rem;
+}
+.item{
+  display: flex;
+}
+
+.head-nav {
+  list-style: none;
+  font-size: 1.7rem;
+  color: var(--dark-grayish-blue);
+  display: flex;
+  gap: 2.25rem;
+}
+
+.head-nav__item {
+  position: relative;
+  cursor: pointer;
+}
+
+.head-nav__item::after {
+  content: "";
+  position: absolute;
+  bottom: -6.8rem;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  transform: scale(0);
+  background-color: var(--orange);
+  transition: transform 0.3s;
+  transform-origin: center;
+}
+
+.head-nav__item:hover::after {
+  transform: scale(1);
+}
+
+.head-nav__btn {
+  display: none;
+}
+
+.head-rgt {
+  display: flex;
+  gap: 5rem;
+  position: relative;
+}
+
+.head-rgt::after {
+  content: attr(data-content);
+  height: 1.7rem;
+  width: 2.7rem;
+  padding: 0.1rem 0.15rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--white);
+  text-align: center;
+  border-radius: 10px;
+  background-color: var(--orange);
+  position: absolute;
+  top: -0.5rem;
+  left: -1rem;
+  display: var(--display, none);
+}
+
+.head-rgt__img {
+  height: 5.5rem;
+  width: 5.5rem;
+  border-radius: 100px;
+  border: 0.3rem solid transparent;
+  cursor: pointer;
+}
+
+.head-rgt__img:hover {
+  border: 0.3rem solid var(--orange);
+}
+
+.head-rgt__btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Btn stylling */
+.btn--orange {
+  padding: 2rem 5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--white);
+  background-color: var(--orange);
+  border: none;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.item {
+  padding: 20px;
+  max-width: 134rem;
+  margin: auto;
+  display: grid;
+  /* grid-template-columns: 0.8fr 1fr; */
+ 
+}
+
+
+.item .slider_post {
+  position: relative;
+  /* Cho phép các controls và counter định vị tương đối với slider */
+  width: 100%;
+  max-width: 600px;
+  /* Giới hạn kích thước lớn nhất của slider */
+  margin: 20px auto;
+  overflow: hidden;
+border-radius: 20px;
+  overflow-x: hidden;
+}
+
+.item .slides_post {
+  width: fit-content;
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.item .slide_post {
+  width: 100%;
+  max-width: 600px;
+  max-height: 650px;
+  flex-shrink: 0;
+}
+
+
+.slider-controls-post button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0;
+  /* Ban đầu ẩn */
+  transition: opacity 0.5s ease;
+}
+
+.slider_post:hover .slider-controls-post button {
+  opacity: 1;
+  /* Hiển thị khi hover lên slider */
+}
+
+#prev_post {
+  left: 10px;
+}
+
+#next_post {
+  right: 10px;
+}
+
+
+
+.counter_post {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  /* Tùy chọn: Thêm nền để tăng độ đọc */
+  padding: 5px;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+.post-container {
+  width: inherit;
+  margin: 20px auto;
+  /* background-color: #fff; */
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+
+}
+
+.post-header {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+}
+
+.post-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.post-info {
+  flex-grow: 1;
+}
+
+.post-info h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  font-family: cursive;
+}
+
+.post-info p {
+  margin: 5px 0;
+  color: #888;
+}
+
+.post-content {
+  padding: 20px;
+  color: #333;
+}
+
+.post-footer {
+  /* position: relative; */
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  color: #888;
+}
+
+.post-footer span {
+  margin-right: 20px;
+  cursor: pointer;
+  color: #3578E5;
+}
+
+.post-footer span:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+/*/////////////
+JavaScript Triggered Classes
+ //////////////*/
+.open-cart {
+  visibility: visible;
+}
+
+.open-menu {
+  transform: translateX(0%);
+}
+
+.open-overlay {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.preload * {
+  transition: none !important;
+}
+
+
+/* .user {
+  flex: 0 0 var(--size);
+  width: var(--size);
+  height: var(--size);
+  background-color: lightgrey;
+  border-radius: 50%;
+} */
+
+/* comment component */
+
+.comment {
+  --size: 2rem;
+  position: relative;
+  display: flex;
+  gap: 0.5rem;
+
+  p {
+    font-family: "Flow Circular", sans-serif;
+    color: #9a9a9a;
+  }
+
+}
+
+.comment__actions {
+  display: flex;
+  gap: 1rem;
+  padding-block: 4px;
+  padding-inline-start: 1rem;
+
+  a {
+    text-decoration: none;
+    color: #222;
+    color : wheat;
+    font-weight: bold;
+  }
+}
+
+.comment__body {
+  background-color: antiquewhite;
+  padding: 1rem;
+  border-radius: 15px;
+
+  > * + * {
+    margin-top: 0.5rem;
+  }
+
+
+  li {
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      inset-inline-start: 15px;
+      top: -2px;
+      height: 20px;
+      width: 28px;
+      border-inline-start: 2px solid #000;
+      border-bottom: 2px solid #000;
+      background: transparent;
+      border-end-start-radius: 10px;
+    }
+  }
+}
+
+
+.wrapper {
+  max-width: 700px;
+  margin: 1rem auto;
+  padding: 1rem;
+}
+
+strong {
+  font-weight: bold;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "system-ui";
+  line-height: 1.3;
+}
+
+
+
+
+
+
+
+:root {
+  --dark: #34495E;
+  --light: #ffffff;
+  --success: #0ABF30;
+  --error: #E24D4C;
+  --warning: #E9BD0C;
+  --info: #3498DB;
+}
+
+.notifications_ok {
+  position: fixed;
+  top: 30px;
+  right: 20px;
+}
+.notifications_ok :where(.toast, .column) {
+  display: flex;
+  align-items: center;
+}
+.notifications_ok .toast {
+  width: 400px;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  border-radius: 4px;
+  padding: 16px 17px;
+  margin-bottom: 10px;
+  background: var(--light);
+  justify-content: space-between;
+  animation: show_toast 0.3s ease forwards;
+}
+
+.notifications_ok .toast.hide {
+  animation: hide_toast 0.3s ease forwards;
+}
+.toast::before {
+  position: absolute;
+  content: "";
+  height: 3px;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  animation: progress 3s linear forwards;
+}
+.toast.success::before, .btn_noti#success {
+  background: var(--success);
+}
+.toast.error::before, .btn_noti#error {
+  background: var(--error);
+}
+.toast.warning::before, .btn_noti#warning {
+  background: var(--warning);
+}
+.toast.info::before, .btn_noti#info {
+  background: var(--info);
+}
+.toast .column i {
+  font-size: 1.75rem;
+}
+.toast.success .column i {
+  color: var(--success);
+}
+.toast.error .column i {
+  color: var(--error);
+}
+.toast.warning .column i {
+  color: var(--warning);
+}
+.toast.info .column i {
+  color: var(--info);
+}
+.toast .column span {
+  font-size: 1.07rem;
+  margin-left: 12px;
+}
+.toast i:last-child {
+  color: #aeb0d7;
+  cursor: pointer;
+}
+.toast i:last-child:hover {
+  color: var(--dark);
+}
+.buttons .btn_noti {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 0 5px;
+  color: var(--light);
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+
+
+
+
+.alert_box,
+.show_button{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50% , -50%);
+}
+.show_button{
+  height: 55px;
+  padding: 0 30px;
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  color: #fff;
+  line-height: 55px;
+  background: #2980b9;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.show_button:hover{
+  background: #2573a7;
+}
+.background{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+.alert_box{
+  border : 2px dashed green;
+  padding: 19px;
+  display: flex;
+  background: beige;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 390px;
+  width: 100%;
+  border-radius: 5px;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.97);
+  transition: all 0.3s ease 0s;
+}
+#check:checked ~ .alert_box{
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50% , -50%) scale(1);
+}
+#check:checked ~ .background{
+  opacity: 1;
+  pointer-events: auto;
+}
+#check{
+  display: none;
+}
+.alert_box .icon{
+  height: 60px;
+  width: 60px;
+  color: #f23b26;
+  border: 3px solid #f23b26;
+  border-radius: 50%;
+  line-height: 97px;
+  font-size: 30px;
+}
+.alert_box header{
+  font-size: 22px;
+  font-weight: 600;
+  
+}
+.alert_box p{
+  font-size: 15px;
+}
+.alert_box .btns{
+  margin-top: 10px;
+}
+.btns label{
+  width: 111px;
+  display: inline-flex;
+  height: 45px;
+ 
+  padding: 0 30px;
+  /* font-size: 20px; */
+  font-weight: 400;
+  cursor: pointer;
+  line-height: 49px;
+  outline: none;
+  margin: 0 10px;
+  border: none;
+  color: #fff;
+
+
+  border-radius : 30px;
+  transition: all 0.3s ease;
+}
+.btns label:first-child{
+  background: #2980b9;
+}
+.btns label:first-child:hover{
+  background: #2573a7;
+}
+.btns label:last-child{
+  background: #f23b26;
+}
+.btns label:last-child:hover{
+  background: #d9210d;
+}
+
+
+
+
+.slider_post,
+.post-container {
+  animation: shadow-glow 8s linear infinite;
+}
+
+.post-content .post_caption {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  /* Số dòng hiển thị */
+  -webkit-box-orient: vertical;
+}
+
+.post-content .post_caption.show-all {
+  -webkit-line-clamp: unset;
+  /* Hiển thị toàn bộ nội dung */
+}
+
+.hidden {
+  display: none;
+
+}
+
+
+
+::selection{
+  color: #fff;
+  background: #7d2ae8;
+}
+.view-modal, .popup123{
+  border: 2px dashed lightseagreen;
+  display: none;
+  position: absolute;
+  left: 50%;
+}
+.copy{
+  outline: none;
+  cursor: pointer;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  transition: background 0.1s linear, border-color 0.1s linear, color 0.1s linear;
+}
+.view-modal{
+  top: 50%;
+  color: #7d2ae8;
+  font-size: 18px;
+  padding: 10px 25px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+.popup123{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+  padding: 13px;
+  border-radius: 15px;
+  top: -150%;
+  max-width: 310px;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+  transform: translate(-50%, -50%) scale(1.2);
+  transition: top 0s 0.2s ease-in-out,
+              opacity 0.2s 0s ease-in-out,
+              transform 0.2s 0s ease-in-out;
+}
+.popup123.show{
+  top: 50%;
+  opacity: 1;
+  pointer-events: auto;
+  transform:translate(-50%, -50%) scale(1);
+  transition: top 0s 0s ease-in-out,
+              opacity 0.2s 0s ease-in-out,
+              transform 0.2s 0s ease-in-out;
+
+}
+.popup123 :is(header, .icons, .field){
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.popup123 header{
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ebedf9;
+}
+header span{
+  font-size: 19px;
+  font-weight: 600;
+}
+header .close, .icons a{
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+header .close{
+  color: #878787;
+  font-size: 17px;
+  background: #f2f3fb;
+  height: 33px;
+  width: 33px;
+  cursor: pointer;
+}
+header .close:hover{
+  background: #ebedf9;
+}
+.popup123 .content_123
+{
+  margin: 20px 0;
+}
+.popup123 .icons{
+  padding: unset;
+  margin: 1px;
+}
+.content_123 p{
+  font-size: 13px;
+}
+.content_123 .icons a{
+  height: 50px;
+  width: 50px;
+  font-size: 16px;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+.icons a i{
+  transition: transform 0.3s ease-in-out;
+}
+.icons a:nth-child(1){
+  color: #1877F2;
+  border-color: #b7d4fb;
+}
+.icons a:nth-child(1):hover{
+  background: #1877F2;
+}
+.icons a:nth-child(2){
+  color: #46C1F6;
+  border-color: #b6e7fc;
+}
+.icons a:nth-child(2):hover{
+  background: #46C1F6;
+}
+.icons a:nth-child(3){
+  color: #e1306c;
+  border-color: #f5bccf;
+}
+.icons a:nth-child(3):hover{
+  background: #e1306c;
+}
+.icons a:nth-child(4){
+  color: #25D366;
+  border-color: #bef4d2;
+}
+.icons a:nth-child(4):hover{
+  background: #25D366;
+}
+.icons a:nth-child(5){
+  color: #0088cc;
+  border-color: #b3e6ff;
+}
+.icons a:nth-child(5):hover{
+  background: #0088cc;
+}
+.icons a:hover{
+  color: #fff;
+  border-color: transparent;
+}
+.icons a:hover i{
+  transform: scale(1.2);
+}
+.content_123 .field{
+  margin: 12px 0 -5px 0;
+  height: 45px;
+  border-radius: 4px;
+  padding: 2px 5px;
+  border: 1px solid #e1e1e1;
+}
+.field.active{
+  border-color: #7d2ae8;
+}
+.field i{
+  width: 50px;
+  font-size: 18px;
+  text-align: center;
+}
+.field.active i{
+  color: #7d2ae8;
+}
+.field input{
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  font-size: 15px;
+}
+.field .copy{
+  color: #fff;
+  padding: 5px 18px;
+  background: #7d2ae8;
+}
+.field .copy:hover{
+  background: #8d39fa;
+}
+
+   </style>
+
+    <title>Frontend Mentor | E-commerce product page</title>
+
+</head>
+
+<body>
+
+
+    <div class="container_12345">
+        <input type="checkbox" id="check" class="input-checkbox">
+        <div class="background"></div>
+        <div class="alert_box">
+            <div class="icon">
+                <i style="    position: absolute;
+            top: 32px;
+    right: 178px;" class="fas fa-exclamation-triangle"></i>
+            </div>
+            <header style="font-weight: 700;
+        color: black;">
+                Confirm
+            </header>
+            <p class="content_confirm">Are you sure want to permanently delete this Photo?</p>
+            <div class="btns" style="font-size: medium;">
+                <label for="check" onclick="createToast('success', 'Bạn đã xác nhận mua hàng.')">Okey</label>
+                <label for="check">Cancel</label>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="body-wrapper"></div>
+
+    <!-- Overlay image Modal -->
+    <!-- Header -->
+    <header class="head">
+        <div class="head-lft">
+            <button class="head-lft__btn">
+                <img src="images/icon-menu.svg" alt="menu image" class="head-lft__btn-img" />
+            </button>
+            <img src="images/logo.svg" alt="logo" class="head-logo" />
+            <ul class="head-nav">
+                <li class="head-nav__item">Collections</li>
+                <li class="head-nav__item">Men</li>
+                <li class="head-nav__item">Women</li>
+                <li class="head-nav__item">About</li>
+                <li class="head-nav__item">Contact</li>
+            </ul>
+        </div>
+
+        <div class="head-rgt">
+            <button class="head-rgt__btn">
+                <img src="images/icon-cart.svg" alt="cart image" class="head-cart__btn-img" />
+            </button>
+
+            <img src="image/truongcun.png" alt="person image" class="head-rgt__img" />
+        </div>
+
+
+
+    </header>
+
+
+
+    <!-- Main item container -->
+    <main class="item">
+
+
+
+
+
+
+        <div style="display: flex; margin: 10px;gap:5px ; padding-left: 60px ; padding-right: 60px;max-height: 595px; position: relative;"
+             class="item_1">
+
+
+
+            <div class="popup123" style="top:13%;left: 46%; opacity: 1;z-index: 9999;">
+
+                <header>
+                    <span>Share Product</span>
+                    <div class="close"><i class="uil uil-times"></i></div>
+                </header>
+                <div class="content_123">
+                    <p>Share this link via</p>
+                    <ul class="icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                    </ul>
+                    <p>Or copy link</p>
+                    <div class="field">
+                        <i class="url-icon uil uil-link"></i>
+                        <input type="text" readonly value="truongcun.com">
+                        <button class="copy">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div style="border: 2px dashed green;" class="slider_post">
+                <div class="slides_post">
+                    <!-- Hiển thị các ảnh sản phẩm -->
+                    @foreach (var imageUrl in Model.Product.ImageUrls)
+                    {
+                        <img src="@imageUrl" class="slide_post" alt="Product Image">
+                    }
+                </div>
+                <div class="slider-controls-post">
+                    <button id="prev_post">
+                        <img style="border-radius: 50%; width: 40px; height: 40px;" src="image/left.jpg" alt="Previous">
+                    </button>
+                    <button id="next_post">
+                        <img style="border-radius: 50%; width: 40px; height: 40px;" src="image/right.jpg" alt="Next">
+                    </button>
+                </div>
+                <div class="counter_post" id="counter_post">1/@Model.Product.ImageUrls.Count</div>
+            </div>
+
+            <div style="border: 2px dashed green; max-width: 620px;" class="post-container">
+                <div class="post-header">
+                    <img src="@Model.Product.User.Avatar" alt="Avatar" class="post-avatar">
+                    <div class="post-info">
+                        <h3 style="color: wheat;">@Model.Product.User.Fullname</h3>
+                        <p style="font-size: 9px; color: wheat">@Model.Product.CreatedAt?.ToString("dd-MM-yyyy HH:mm:ss")</p>
+                    </div>
+                </div>
+
+                <div style="font-size: small; color: wheat;" class="post-content">
+                    <div class="post_caption">
+                        <p><strong>Product Name:</strong> @Model.Product.ProductName</p>
+                        <p><strong>Price:</strong> @Model.Product.Price?.ToString("C")</p>
+                        <p><strong>Quantity:</strong> @Model.Product.Quantity</p>
+
+                        <p><strong>Brand:</strong> @Model.Product.BrandName</p>
+                        <p><strong>Description:</strong> @Model.Product.Description</p>
+                        @* <p><strong>Category:</strong> @Model.Product.Category?.CategoryName</p> *@
+                    </div>
+
+                    <div class="buttons">
+                        <button style="padding: 4px; border-radius: 14px;background-color: antiquewhite;border: none;"
+                                onclick="toggleContent()">
+                            Show more
+                        </button>
+
+                    </div>
+                </div>
+
+
+                <div class="post-footer">
+                    <div style="padding-bottom: 5px; display: flex; justify-content: space-between; border-bottom: 1px solid white;" class="action-buttons">
+                        <div class="interaction-buttons">
+                            <span id="heartIcon"><i class="uil uil-heart"></i></span>
+                            <span><i class="uil uil-comment-dots"></i></span>
+                            <span style="position: relative;" class="share_media_copy"><i class="uil uil-share-alt"></i></span>
+                            <label for="check">
+                                <span onclick="changeContent('Are you sure to buy this product?')">
+                                    <i class="fas fa-shopping-cart cart-icon"></i>
+                                </span>
+                            </label>
+                            <span><i class="fas fa-chart-bar analysis-icon"></i></span>
+                        </div>
+                        <div id="bookmarkIcon" style="float: right;">
+                            <span><i class="uil uil-bookmark"></i></span>
+                        </div>
+                    </div>
+
+                    <form style="display: flex; margin-top: 6px; justify-content: space-between;">
+                        <img style="width: 33px; height: 33px;" src="" alt="User Avatar" class="head-rgt__img" />
+                        <input style="border-radius: 15px; background-color: antiquewhite; width: 84%;" placeholder="What do you think?" type="text" name="comment">
+                        <button style="border-radius: 15px; padding: 4px; color: aqua;">Submit</button>
+                    </form>
+
+                    <div class="comment_detail_post" id="comments" style="overflow-y: scroll; max-height: 250px; margin-top: 4px;">
+                        <!-- Bình luận sẽ được hiển thị ở đây -->
+                        <select style="padding: 3px; border-radius: 9px; background-color: darkseagreen;" id="comment-options">
+                            <option value="2" id="show-more_2">Show more 2 comments</option>
+                            <option value="4" id="show-more_4">Show more 4 comments</option>
+                            <option value="all" id="show-all">Show all comments</option>
+                        </select>
+                        <!-- Danh sách bình luận mẫu -->
+                        <div class="wrapper">
+                            <ul class="list">
+                                <li class="comment-item">
+                                    <div class="comment">
+                                        <div class="user">
+                                            <img style="width: 25px; height: 25px; border-radius: 50%;" src="" alt="User Avatar">
+                                        </div>
+                                        <div class="comment__body">
+                                            <p><strong>Vũ Trường</strong></p>
+                                            <p>This is a sample comment about the product.</p>
+                                        </div>
+                                        <div class="comment__actions">
+                                            <a href="#">Like</a>
+                                            <a href="#">Reply</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+              
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+    <!-- Attribution -->
+    <div style="text-align: center;" style="margin-bottom: 12px;" class="attribution">
+        Copyright by
+        <a href="#" target="_blank">Kibyhunter social </a>
+    </div>
+
+
+<script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const commentsContainer = document.getElementById('comments');
+            const commentOptions = document.getElementById('comment-options');
+            const comments = document.querySelectorAll('.comment');
+
+            // Function to toggle visibility of comments
+            function toggleComments(commentsToShow) {
+                let index = 0;
+                comments.forEach((comment) => {
+                    if (index < commentsToShow) {
+                        comment.classList.remove('hidden');
+                    } else {
+                        comment.classList.add('hidden');
+                    }
+                    index++;
+                });
+            }
+
+            // Initial toggle based on default option
+            toggleComments(2); // Start with 2 comments shown
+
+            // Event listener for select option change
+            commentOptions.addEventListener('change', () => {
+                let selectedOption = commentOptions.value;
+                if (selectedOption === 'all') {
+                    toggleComments(comments.length);
+                } else {
+                    let numToShow = parseInt(selectedOption);
+                    toggleComments(numToShow);
+                }
+            });
+
+            // Event listener for "Show more" options
+            commentOptions.addEventListener('click', (event) => {
+                if (event.target.tagName === 'OPTION') {
+                    let currentShown = parseInt(event.target.value);
+                    let numToShow = currentShown + parseInt(event.target.value);
+                    toggleComments(numToShow);
+                }
+            });
+
+        });
+
+
+
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.slider_post').forEach((slider, index) => {
+                let currentIndex = 0; // Khởi tạo chỉ số hiện tại cho mỗi slider
+
+                const slides = slider.querySelectorAll('.slide_post');
+                const counter = slider.querySelector('.counter_post');
+                const total = slides.length;
+                const updateCounter = () => {
+                    counter.textContent = `${currentIndex + 1}/${total}`;
+                };
+
+                const showSlide = (index) => {
+                    if (index >= total) currentIndex = 0;
+                    if (index < 0) currentIndex = total - 1;
+                    slider.querySelector('.slides_post').style.transform = `translateX(${-currentIndex * 100}%)`;
+                    updateCounter();
+                };
+
+                slider.querySelector('#next_post').addEventListener('click', () => {
+                    currentIndex++;
+                    showSlide(currentIndex);
+                });
+
+                slider.querySelector('#prev_post').addEventListener('click', () => {
+                    currentIndex--;
+                    showSlide(currentIndex);
+                });
+
+                updateCounter(); // Cập nhật bộ đếm khi trang tải xong cho mỗi slider
+            });
+        });
+
+
+
+
+        const heartIcons = document.querySelector('#heartIcon');
+        const bookmarkIcons = document.querySelector('#bookmarkIcon');
+        heartIcon.addEventListener('click', function () {
+            const heartIconInner = heartIcon.querySelector('i');
+
+            // Kiểm tra và chuyển đổi class
+            if (heartIconInner.classList.contains('uil-heart')) {
+                heartIconInner.classList.remove('uil-heart');
+                heartIconInner.classList.add('fa', 'fa-solid', 'fa-heart');
+            } else {
+                heartIconInner.classList.remove('fa', 'fa-solid', 'fa-heart');
+                heartIconInner.classList.add('uil-heart');
+            }
+        });
+
+
+
+        bookmarkIcon.addEventListener('click', function () {
+            const bookmarkIconInner = bookmarkIcon.querySelector('i');
+
+
+
+            // Kiểm tra và chuyển đổi class
+            if (bookmarkIconInner.classList.contains('uil-bookmark')) {
+                bookmarkIconInner.classList.remove('uil-bookmark');
+                bookmarkIconInner.classList.add('fa', 'fa-solid', 'fa-bookmark');
+                createToast('success', 'Thêm vào yêu thích thành công');
+            } else {
+                bookmarkIconInner.classList.remove('fa', 'fa-solid', 'fa-bookmark');
+                bookmarkIconInner.classList.add('uil-bookmark');
+                createToast('success', 'Đã xóa khỏi yêu thích');
+            }
+        });
+
+
+
+
+        function toggleContent() {
+            var content = document.querySelector('.post-content .post_caption');
+            var button = document.querySelector('.post-content  button');
+
+            if (content.classList.contains('show-all')) {
+                content.classList.remove('show-all');
+                button.innerText = 'Show more';
+            } else {
+                content.classList.add('show-all');
+                button.innerText = 'Show less';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy thời gian hiện tại
+            const now = new Date();
+
+            // Lấy phần tử chứa thời gian đăng bài
+            const timePostInput = document.querySelector('.post-info input[type="hidden"]');
+            const timePostElement = document.querySelector('.post-info p');
+
+            // Hàm xử lý thời gian đăng bài
+            const updateTimeOfPost = () => {
+                const postedDate = new Date(timePostInput.value); // Giả sử giá trị là thời gian hợp lệ
+                const timeDifference = Math.abs(now - postedDate); // Khoảng thời gian tính bằng milliseconds
+                const timeInSeconds = timeDifference / 1000; // Chuyển đổi sang giây
+
+                if (timeInSeconds < 60) {
+                    timePostElement.innerHTML = Math.floor(timeInSeconds) + " seconds ago";
+                } else if (timeInSeconds < 3600) {
+                    const minutes = Math.floor(timeInSeconds / 60);
+                    timePostElement.innerHTML = minutes + " minutes ago";
+                } else if (timeInSeconds < 86400) {
+                    const hours = Math.floor(timeInSeconds / 3600);
+                    timePostElement.innerHTML = hours + " hours ago";
+                } else {
+                    const days = Math.floor(timeInSeconds / 86400);
+                    timePostElement.innerHTML = days + " days ago";
+                }
+            };
+
+            // Gọi hàm để cập nhật thời gian
+            updateTimeOfPost();
+        });
+
+
+
+
+        const notifications_ok = document.querySelector(".notifications_ok");
+
+        const toastDetails = {
+            timer: 3000,
+            success: {
+                icon: 'fa-circle-check',
+                text: 'Success: ', // Cập nhật thành công
+            },
+            error: {
+                icon: 'fa-circle-xmark',
+                text: 'Error: ', // Cập nhật có lỗi
+            },
+            warning: {
+                icon: 'fa-triangle-exclamation',
+                text: 'Warning: ', // Cập nhật cảnh báo
+            },
+            info: {
+                icon: 'fa-circle-info',
+                text: 'Info: ', // Cập nhật thông tin
+            }
+        }
+
+        const removeToast = (toast) => {
+            toast.classList.add("hide");
+            if (toast.timeoutId) clearTimeout(toast.timeoutId);
+            setTimeout(() => toast.remove(), 500);
+        }
+
+        // Cập nhật hàm createToast để nhận thêm một tham số message
+        const createToast = (id, message) => {
+            const { icon, text } = toastDetails[id];
+            const toast = document.createElement("li");
+            toast.className = `toast ${id}`;
+            toast.innerHTML = `<div class="column">
+                                 <i class="fa-solid ${icon}"></i>
+                                 <span style="font-size:15px;color:green">${text + message}</span> <!-- Thêm message vào đây -->
+                              </div>
+                              <i class="fa-solid fa-xmark" onclick="removeToast(this.parentElement)"></i>`;
+            notifications_ok.appendChild(toast);
+            toast.timeoutId = setTimeout(() => removeToast(toast), toastDetails.timer);
+        }
+
+
+
+        function changeContent(message) {
+            const contentConfirm = document.querySelector('.content_confirm');
+            contentConfirm.textContent = message;
+        }
+
+
+
+        popup = document.querySelector(".popup123"),
+            close = popup.querySelector(".close"),
+            field = popup.querySelector(".field"),
+            input = field.querySelector("input"),
+            copy = field.querySelector("button");
+
+
+        popup.classList.toggle("show");
+
+        copy.onclick = () => {
+            input.select(); //select input value
+            if (document.execCommand("copy")) { //if the selected text copy
+                field.classList.add("active");
+                copy.innerText = "Copied";
+                setTimeout(() => {
+                    window.getSelection().removeAllRanges(); //remove selection from document
+                    field.classList.remove("active");
+                    copy.innerText = "Copy";
+                }, 3000);
+            }
+        }
+
+
+        var shareButtons = document.querySelector('.share_media_copy');
+
+        // Duyệt qua từng button và thêm sự kiện click
+
+        shareButtons.addEventListener('click', function () {
+            // Lấy phần tử có class="popup123"
+            var popup = document.querySelector('.popup123');
+
+            // Hiển thị popup
+            if (popup.style.display === 'block') {
+                popup.style.display = 'none';
+            } else {
+                popup.style.display = 'block';
+            }
+
+
+        });
+
+        var popup1 = document.querySelector('.close');
+        popup1.addEventListener('click', function () {
+            popup.style.display = 'none';
+        });
+</script>
+</body>
+
+</html>

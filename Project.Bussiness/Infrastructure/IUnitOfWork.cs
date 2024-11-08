@@ -21,6 +21,21 @@ namespace Project.Bussiness.Infrastructure
         IBaseRepository<OrderDetail> OrderDetailRepository { get; }
         IBaseRepository<Payment> PaymentRepository { get; }
 
+
+        
+        IBaseRepository<Notification> NotificationRepository { get; }
+
+
+        IBaseRepository<Transaction> TransactionRepository { get; }
+        IBaseRepository<TransactionType> TransactionTypeRepository { get; }
+
+
+        IBaseRepository<Wallet> WalletRepository { get; }
+
+        
+
+
+
         // Generic repository method
         IBaseRepository<T> GenericRepository<T>() where T : class;
 

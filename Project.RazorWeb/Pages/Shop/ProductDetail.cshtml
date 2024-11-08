@@ -1,0 +1,307 @@
+﻿@page "/ProductDetail/{id:int}"
+@model Project.RazorWeb.Pages.Seller.ProductDetailModel
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container">
+    <h2 class="product-title">@Model.Product.ProductName</h2>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="image-gallery">
+                @foreach (var imageUrl in Model.Product.ImageUrls)
+                {
+                    <div class="image-container">
+                        <img src="@imageUrl" class="img-thumbnail" alt="Product Image" onclick="openModal('@imageUrl')" />
+                    </div>
+                }
+            </div>
+
+            <!-- Full-Screen Image Modal -->
+            <div id="imageModal" class="modal" onclick="closeModal()">
+                <span class="close">&times;</span>
+                <img class="modal-content" id="fullScreenImage" />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="product-details mt-3">
+                <p><strong>Brand:</strong> @Model.Product.BrandName</p>
+                <p style="color: red;"><strong>Price:</strong> @Model.Product.Price</p>
+                <p><strong>Description:</strong> @Model.Product.Description</p>
+                <p><strong>Quantity:</strong> @Model.Product.Quantity</p>
+            </div>
+
+            <div class="action-buttons mt-3">
+                <form method="post" asp-page="./ProductDetail">
+                    <input type="hidden" name="CartsAdd.ProductId" value="@Model.Product.ProductId" />
+                    <div id="quantityMessage" style="color: red; font-size: 0.9rem; display: none; margin-top: 5px; margin-bottom: 10px;">
+                        The quantity exceeds available stock.
+                    </div>
+                    <div id="quantityError" style="color: red; font-size: 0.9rem; display: none; margin-top: 5px; margin-bottom: 15px;">
+                        Please enter a valid quantity.
+                    </div>
+                    <div class="input-group">
+                        <label for="Quantity">Quantity:</label>
+                        <input type="number" id="Quantity" name="CartsAdd.Quantity" min="1" value="1" class="form-control quantity-input" margin-top: -6px; margin-bottom: 10px;" oninput="checkQuantity()" />
+                    </div>
+
+                    <button type="submit" class="btn add-to-cart" style="margin-left:10px;">Add to Cart</button>
+                </form>
+                <button class="btn buy-now" onclick="buyNow(@Model.Product.ProductId, '@Model.Product.ProductName', @Model.Product.Price)">Buy It Now</button>
+                <button class="btn add-to-watchlist">Add to Watchlist</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Action button functions
+
+        function addToWatchlist() {
+            alert("Added to Watchlist!");
+            // Implement the logic for adding to watchlist here
+        }
+
+        // Modal functions
+        const modal = document.getElementById('imageModal');
+        modal.style.display = 'none';
+
+        function openModal(src) {
+            const modal = document.getElementById('imageModal');
+            const fullScreenImage = document.getElementById('fullScreenImage');
+            fullScreenImage.src = src;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        document.getElementById('imageModal').addEventListener('click', function (event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+    </script>
+}
+<script>
+    function buyNow(productId, productName, productPrice) {
+        const quantity = parseInt(document.getElementById('Quantity').value); // Get the quantity from input
+        const productDetails = {
+            id: productId,
+            name: productName,
+            price: productPrice,
+            quantity: quantity
+        };
+
+        // Retrieve existing products or initialize an empty array
+        const existingProducts = JSON.parse(sessionStorage.getItem('checkoutProducts')) || [];
+
+        // Check if the product already exists
+        const existingProductIndex = existingProducts.findIndex(product => product.id === productId);
+
+        if (existingProductIndex !== -1) {
+            // Update the quantity of the existing product
+            existingProducts[existingProductIndex].quantity += quantity;
+        } else {
+            // Add the new product to the array
+            existingProducts.push(productDetails);
+        }
+
+        // Save the updated product list back to sessionStorage
+        sessionStorage.setItem('checkoutProducts', JSON.stringify(existingProducts));
+
+        // Redirect to checkout page
+        window.location.href = '/Checkout';
+    }
+
+</script>
+
+<script>
+function checkQuantity() {
+    const maxQuantity = @Model.Product.Quantity; // Available quantity from the model
+    const quantityInput = document.getElementById('Quantity');
+    const quantityMessage = document.getElementById('quantityMessage');
+    const quantityError = document.getElementById('quantityError');
+    const submitButton = document.querySelector('button[type="submit"]'); // Button to add to cart
+    const requestedQuantity = parseInt(quantityInput.value);
+
+    // Check if the quantity is empty or less than 1
+    if (quantityInput.value === "" || requestedQuantity < 1) {
+        quantityError.style.display = 'inline'; // Show error if quantity is empty or invalid
+        submitButton.disabled = true; // Disable Add to Cart button
+        submitButton.style.cursor = 'not-allowed'; // Set forbidden cursor on the button
+        submitButton.style.backgroundColor = '#e0e0e0'; // Light gray background when disabled
+    } else {
+        quantityError.style.display = 'none'; // Hide error if quantity is valid
+    }
+
+    // Check if the quantity exceeds available stock
+    if (requestedQuantity > maxQuantity) {
+        quantityMessage.style.display = 'block'; // Show quantity exceed message
+        quantityInput.style.borderColor = 'red'; // Highlight input with red border
+        submitButton.disabled = true; // Disable Add to Cart button
+        submitButton.style.cursor = 'not-allowed'; // Set forbidden cursor on the button
+        submitButton.style.backgroundColor = '#e0e0e0'; // Light gray background when disabled
+    } else {
+        quantityMessage.style.display = 'none'; // Hide exceed message
+        quantityInput.style.borderColor = ''; // Reset input styling
+    }
+
+    // If quantity is valid and within the available stock, enable the button
+    if (requestedQuantity >= 1 && requestedQuantity <= maxQuantity) {
+        submitButton.disabled = false;
+        submitButton.style.cursor = 'pointer';
+        submitButton.style.backgroundColor = ''; // Reset to original color when enabled
+    }
+}
+
+
+    // Bind the checkQuantity function to the input field
+    document.getElementById('Quantity').addEventListener('input', checkQuantity);
+</script>
+
+
+
+<style>
+    /* Container and layout styles */
+    .container {
+        max-width: 1200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .product-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .image-gallery {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    /* Image container styling */
+    .image-container {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+        cursor: pointer;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .image-container img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+    }
+
+    .image-container:hover img {
+        transform: scale(1.05);
+    }
+
+    /* Product details */
+    .product-details p {
+        font-size: 1.1rem;
+        color: #333;
+        line-height: 1.6;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Styling for action buttons */
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        width: 100%;
+        max-width: 250px; /* Max width for buttons */
+    }
+
+    .buy-now {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    .buy-now:hover {
+        background-color: #45a049;
+    }
+
+    .add-to-cart {
+        background-color: #008CBA;
+        color: white;
+    }
+
+    .add-to-cart:hover {
+        background-color: #007bb5;
+    }
+
+    .add-to-watchlist {
+        background-color: #f0ad4e;
+        color: white;
+    }
+
+    .add-to-watchlist:hover {
+        background-color: #ec971f;
+    }
+
+    /* Modal styling */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        width: auto;
+        height: auto;
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 5px;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: #fff;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+ 
+</style>
+
+

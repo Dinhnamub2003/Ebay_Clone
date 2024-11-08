@@ -1,0 +1,360 @@
+﻿@page "/mycart"
+@model Project.RazorWeb.Pages.Cart.CartModel
+@{
+}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>eBay shopping cart</title>
+	<link rel="stylesheet" href="../css/cart.css" />
+	<link rel="stylesheet" href="../css/Homepage.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+		  rel="stylesheet"
+		  integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+		  crossorigin="anonymous" />
+	<link rel="Icon" href="https://pages.ebay.com/favicon.ico" />
+</head>
+<style>
+	.empty-cart-message {
+		margin-top: 20px; /* Thêm khoảng cách trên */
+	}
+</style>
+<body>
+	<!-- The header will be here -->
+	<header>
+		<div class="container">
+			<div class="row custom-nav">
+				<span class="col-auto sign-btn">Hi! <a href="" class="">Sign in</a> or <a href="" class="">register</a></span>
+				<a class="col-auto link" href="">Daily Deals</a>
+				<a class="col-auto link" href="">Help & Contact</a>
+
+				<a class="nav-spacing col-auto link" href="">Ship to</a>
+				<a class="col-auto link" href="">Sell</a>
+				<div class="col-auto">
+					<a href="/pages/dashboard.html" class="custom-nav" type="button"> Watchlist </a>
+					<!-- <ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li>
+					</ul> -->
+				</div>
+				<div class="dropdown col-auto">
+					<button class="btn dropdown-toggle custom-nav"
+							type="button"
+							data-bs-toggle="dropdown"
+							aria-expanded="false">
+						My eBay
+					</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li>
+					</ul>
+				</div>
+
+				<img style="width: 45px; height: 30px" src="../Assets/images/bell .svg" alt="" />
+				<img style="width: 45px; height: 30px" src="../Assets/images/cart.svg" alt="" />
+			</div>
+		</div>
+	</header>
+
+	<!-- Just a divider -->
+	<div class="row">
+		<div class="divider">
+			<hr />
+		</div>
+	</div>
+
+	<div class="container">
+		
+	@if (Model.Carts != null && Model.Carts.Any())
+	{
+		<div class="row statement bg-primary">
+
+			<div class="col-auto">
+				<img class="danger" src="../Assets/danger.png" />
+			</div>
+			<div class="col">
+				<p>
+					You have more than one currency in your cart, so you'll complete checkout for each
+					currency separately.
+				</p>
+			</div>
+		</div>
+	}
+		<br />
+		<div class="row">
+			<!-- the left side of the container -->
+			<div class="col-8 leftSide">
+				<h1 class="heading">Shopping Cart</h1>
+				<hr />
+				<div id="cartData" class="left">
+					@if (Model.Carts != null && Model.Carts.Any())
+					{
+						@foreach (var item in Model.Carts)
+						{
+							<div class="cart-item">
+								<div class="card h-100 d-flex flex-row">
+									<img src="@item.ImageUrls.First()" class="card-img-left" alt="@item.ProductName" style="height: 150px; width: auto; object-fit: cover;">
+									<div class="card-body d-flex flex-column justify-content-between">
+										<div>
+											<input type="hidden" name="productId" value="@item.ProductId" /> <!-- Hidden input for Product ID -->
+											<p class="product-name"><strong>@item.ProductName</strong></p> <!-- Class for easy selector -->
+											<p class="product-price" style="color: red"> $@item.Price</p> <!-- Class for easy selector -->
+											<p>@item.Description</p>
+											<p>AvailableQuantity: @item.AvailableQuantity</p>
+	
+										</div>
+												<form method="post" asp-page-handler="UpdateQuantity" asp-route-cartId="@item.CartId" class="mb-2">
+			<label>Quantity:</label>
+			<input type="number" name="quantity"
+				   min="1"
+				   max="@item.AvailableQuantity"
+				   value="@item.Quantity"
+				   required
+				   onchange="this.form.submit()" /> <!-- Gửi form mỗi khi thay đổi -->
+			<p class="text-danger quantity-error" style="display: none;">Quantity must be between 1 and @item.AvailableQuantity.</p>
+		</form>
+
+
+
+
+										<form method="post" asp-page-handler="Delete" asp-route-cartId="@item.CartId" class="text-end" onsubmit="return confirm('Are you sure you want to delete this item?');">
+											<button type="submit" class="btn btn-danger">Remove</button>
+										</form>
+									</div>
+								</div>
+								<hr />
+							</div>
+						}
+
+					}
+					else
+					{
+						<div class="empty-cart-message text-center">
+							<p>You don't have any items in your cart. Let's get shopping!</p>
+							<a href="/shop/products" class="btn btn-primary mt-3">Start Shopping</a>
+						</div>
+					}
+				</div>
+
+				@if (Model.Carts != null && Model.Carts.Any())
+				{
+					<div class="text-end mt-3">
+						<form method="post" asp-page-handler="ClearCart" onsubmit="return confirm('Are you sure you want to clear the cart?');">
+							<button type="submit" class="btn btn-warning">Clear Cart</button>
+						</form>
+					</div>
+				}
+			</div>
+
+			@if (Model.Carts != null && Model.Carts.Any())
+			{
+				<div class="col-4 rightSide">
+					<div class="row quantity">
+						<div class="col-8">
+							<p>Items (<span id="realQty">@Model.Carts.Sum(c => c.Quantity)</span>)</p>
+						</div>
+						<div class="col-4 text-right">
+							<p id="realP"></p>
+						</div>
+					</div>
+
+					<hr />
+					<div class="row subTotal">
+						<div class="col-8">
+							<p>Subtotal</p>
+						</div>
+						<div class="col-4 text-right">
+							<p id="subtotalAmount">$@(Model.TotalPrice)</p>
+						</div>
+					</div>
+
+
+					<div class="checkoutButton">
+						<button class="btn btn-primary mb-2 rounded-pill py-2" id="go-to-checkout-btn" onclick="checkoutAll()">
+							Go to Checkout
+						</button>
+						<p>Purchase protected by <a href="#">eBay Money Back Guarantee</a></p>
+					</div>
+
+
+				</div>
+			}
+		</div>
+
+	</div>
+
+	<!-- The footer will be here -->
+	<hr />
+	<footer class="footer">
+		<div class="custom-footer container">
+			<div class="row">
+				<div class="custom-footer-column col-3">
+					<h6 href="https://example.com" class="footer-heads link">Buy</h6>
+					<p><a href="https://example.com" class="link">Registration</a></p>
+					<p><a href="https://example.com" class="link">eBay Money Back Guarantee</a></p>
+					<p><a href="https://example.com" class="link">Bidding & buying help</a></p>
+					<p><a href="https://example.com" class="link">Stores</a></p>
+				</div>
+				<div class="custom-footer-column col-2">
+					<div>
+						<h6 href="https://example.com" class="footer-heads link">Sell</h6>
+						<p><a href="https://example.com" class="link">Start selling</a></p>
+						<p><a href="https://example.com" class="link">Learn to sell</a></p>
+						<p><a href="https://example.com" class="link">Affiliates</a></p>
+					</div>
+					<div>
+						<h6 href="https://example.com" class="footer-heads link">Tools & apps</h6>
+						<p><a href="https://example.com" class="link">Developers</a></p>
+						<p><a href="https://example.com" class="link">Security center</a></p>
+						<p><a href="https://example.com" class="link">Site map</a></p>
+					</div>
+				</div>
+				<div class="custom-footer-column col-2">
+					<h6 href="https://example.com" class="footer-heads link">Stay connected</h6>
+					<p><a href="https://example.com" class="link">eBay's Blogs</a></p>
+					<p>
+						<a href="https://example.com" class="link">
+							<i class="fa-brands fa-facebook"></i>Facebook
+						</a>
+					</p>
+					<p>
+						<a href="https://example.com" class="link">
+							<i class="fa-brands fa-twitter"></i> Twitter
+						</a>
+					</p>
+				</div>
+				<div class="custom-footer-column col-2">
+					<h6 href="https://example.com" class="footer-heads link">About eBay</h6>
+					<p><a href="https://example.com" class="link">Company info</a></p>
+					<p><a href="https://example.com" class="link">News</a></p>
+					<p><a href="https://example.com" class="link">Investors</a></p>
+					<p><a href="https://example.com" class="link">Careers</a></p>
+					<p><a href="https://example.com" class="link">Government relations</a></p>
+					<p><a href="https://example.com" class="link">Advertise with us</a></p>
+					<p><a href="https://example.com" class="link">Policies</a></p>
+					<p>
+						<a href="https://example.com" class="link">Verified Rights Owner (VeRO) Program</a>
+					</p>
+				</div>
+				<div class="custom-footer-column col-3">
+					<div>
+						<h6 href="https://example.com" class="footer-heads link">Help & Contact</h6>
+						<p><a href="https://example.com" class="link">Seller Information Center</a></p>
+						<p><a href="https://example.com" class="link">Contact us</a></p>
+					</div>
+					<div>
+						<h6 href="https://example.com" class="footer-heads link">Community</h6>
+						<p><a href="https://example.com" class="link">Announcements</a></p>
+						<p><a href="https://example.com" class="link">Discussion boards</a></p>
+						<p><a href="https://example.com" class="link">eBay Giving Works</a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- <script src="../js/Homepage.js"></script> -->
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+	<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+	<script src="../js/cart.js" type="module"></script>
+
+	<script>
+		function checkoutAll() {
+			const cartItems = [];
+
+			// Loop through each product in the cart
+			document.querySelectorAll('.cart-item').forEach(item => {
+				const productId = item.querySelector('input[name="productId"]').value;
+				const productName = item.querySelector('.product-name').textContent;
+				const price = parseFloat(item.querySelector('.product-price').textContent.replace('$', ''));
+				const quantity = parseInt(item.querySelector('input[name="quantity"]').value);
+
+
+				// Add item details to the cartItems array
+				cartItems.push({
+					id: productId,
+					name: productName,
+					price: price,
+					quantity: quantity
+				});
+			});
+
+			// Retrieve existing products or initialize an empty array
+			const existingProducts = JSON.parse(sessionStorage.getItem('checkoutProducts')) || [];
+
+			cartItems.forEach(cartItem => {
+				const existingProductIndex = existingProducts.findIndex(product => product.id === cartItem.id);
+
+				if (existingProductIndex !== -1) {
+					// Update quantity only if it has changed
+					if (existingProducts[existingProductIndex].quantity !== cartItem.quantity) {
+						existingProducts[existingProductIndex].quantity = cartItem.quantity;
+					}
+				} else {
+					// Add new item if it does not exist
+					existingProducts.push(cartItem);
+				}
+			});
+
+			// Save the updated product list back to sessionStorage
+			sessionStorage.setItem('checkoutProducts', JSON.stringify(existingProducts));
+
+			// Redirect to the checkout page
+			window.location.href = '/Checkout';
+		}
+
+		function updateQuantityAndTotal(inputElement, availableQuantity) {
+			let quantity = parseInt(inputElement.value);
+			let errorMessage = inputElement.closest('form').querySelector('.quantity-error');
+			let checkoutButton = document.getElementById('go-to-checkout-btn');
+			// Kiểm tra tính hợp lệ của quantity
+			if (quantity < 1 || quantity > availableQuantity || isNaN(quantity)) {
+				errorMessage.style.display = 'block';
+				checkoutButton.disabled = true;
+				return; // Dừng nếu số lượng không hợp lệ
+			}
+
+			// Ẩn lỗi nếu quantity hợp lệ
+			errorMessage.style.display = 'none';
+			checkoutButton.disabled = false;
+			// Cập nhật lại giá trị total price và subtotal khi quantity thay đổi
+			updateTotalPrice();
+		}
+
+		function updateTotalPrice() {
+	let subtotal = 0;
+	let totalQuantity = 0; // Biến để lưu tổng số lượng sản phẩm
+
+	// Lặp qua các sản phẩm trong giỏ hàng để tính subtotal và totalQuantity
+	document.querySelectorAll('.cart-item').forEach(item => {
+		const price = parseFloat(item.querySelector('.product-price').textContent.replace('$', ''));
+		const quantity = parseInt(item.querySelector('input[name="quantity"]').value);
+
+		// Kiểm tra và tính subtotal và totalQuantity cho sản phẩm
+		if (!isNaN(price) && !isNaN(quantity)) {
+			subtotal += price * quantity;
+			totalQuantity += quantity; // Cộng dồn số lượng sản phẩm
+		}
+	});
+
+	// Cập nhật Subtotal và Total Price trong giao diện người dùng
+	document.getElementById('subtotalAmount').textContent = `$${subtotal.toFixed(2)}`;
+	document.getElementById('realQty').textContent = totalQuantity; // Cập nhật lại tổng số lượng sản phẩm
+}
+
+
+
+	</script>
+	<style>
+		.quantity-error {
+			color: red;
+			font-size: 0.9rem;
+			margin-top: 5px;
+		}
+	</style>
+</body>
+</html>

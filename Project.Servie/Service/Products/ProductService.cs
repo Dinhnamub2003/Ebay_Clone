@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DocumentFormat.OpenXml.InkML;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Project.Bussiness.Infrastructure;
 using Project.Data.Models;
@@ -17,7 +19,8 @@ namespace Project.Servie.Service.Products
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<int> AddProductAsync(ViewCreateProductModel model)
+        public async Task<int> AddProductAsync(ViewCreateProductModel model, int userId)
+
         {
             var product = new Product
             {
@@ -26,6 +29,8 @@ namespace Project.Servie.Service.Products
                 Quantity = model.Quantity,
                 BrandName = model.BrandName,
                 CreatedAt = DateTime.Now,
+                Price = model.Price,  // Thêm giá bán
+                UserId = userId,
                 CategoryId = model.CategoryId // Gán CategoryId từ model
             };
 
@@ -51,6 +56,7 @@ namespace Project.Servie.Service.Products
         public async Task<ProductDetailViewModel> GetProductWithImagesAsync(int productId)
         {
             var product = await _unitOfWork.ProductRepository.GetQuery()
+                .Include(x => x.User).Include(x => x.Category)
                 .Where(p => p.ProductId == productId)
                 .Select(p => new ProductDetailViewModel
                 {
@@ -60,12 +66,38 @@ namespace Project.Servie.Service.Products
                     Quantity = p.Quantity,
                     BrandName = p.BrandName,
                     CreatedAt = p.CreatedAt,
+                    Price = p.Price,
+                    User = p.User,  // Gán đối tượng User đầy đủ
+                    CategoryId = p.CategoryId, // Thêm CategoryId ở đây
+                    CategoryName = p.Category.CategoryName, // Ánh xạ CategoryName vào ProductDetailViewModel
                     ImageUrls = p.ProductImages.Select(i => i.ImageUrl).ToList()
                 })
                 .FirstOrDefaultAsync();
 
             return product;
         }
+
+        //public async Task<ProductDetailViewModel> GetProductWithImagesAsync1(int productId)
+        //{
+        //    var product = await _unitOfWork.ProductRepository.GetQuery()
+        //        .Include(x => x.User).Include(x => x.Category)
+        //        .Where(p => p.ProductId == productId)
+        //        .Select(p => new ProductDetailViewModel
+        //        {1
+        //            ProductId = p.ProductId,
+        //            ProductName = p.ProductName,
+        //            Description = p.Description,
+        //            Quantity = p.Quantity,
+        //            BrandName = p.BrandName,
+        //            CreatedAt = p.CreatedAt,
+        //            Price = p.Price,
+        //            User = p.User,  // Gán đối tượng User đầy đủ
+        //            ImageUrls = p.ProductImages.Select(i => i.ImageUrl).ToList()
+        //        })
+        //        .FirstOrDefaultAsync();
+
+        //    return product;
+        //}
 
 
         public async Task<List<string>> ValidateAndSaveImagesAsync(int productId, List<IFormFile> images)
@@ -103,6 +135,114 @@ namespace Project.Servie.Service.Products
             return savedImageUrls;
         }
 
+
+
+
+
+
+
+
+        //public async Task<bool> UpdateProductAsync(int productId, ViewCreateProductModel model, List<IFormFile> newImages)
+        //{
+        //    // Tìm sản phẩm trong cơ sở dữ liệu
+        //    var product = await _unitOfWork.ProductRepository.GetByIdAsync(productId);
+        //    if (product == null)
+        //    {
+        //        return false;
+        //    }
+
+        //    // Cập nhật thông tin sản phẩm
+        //    product.ProductName = model.ProductName;
+        //    product.Description = model.Description;
+        //    product.Quantity = model.Quantity;
+        //    product.BrandName = model.BrandName;
+        //    product.Price = model.Price;
+        //    product.CategoryId = model.CategoryId;
+
+        //    _unitOfWork.ProductRepository.Update(product);
+        //    await _unitOfWork.SaveChangesAsync();
+
+        //    // Xóa tất cả ảnh cũ của sản phẩm
+        //    var oldImages = await _unitOfWork.ProductImageRepository.GetQuery()
+        //        .Where(pi => pi.ProductId == productId)
+        //        .ToListAsync();
+        //    foreach (var image in oldImages)
+        //    {
+        //        _unitOfWork.ProductImageRepository.Delete(image);
+
+        //        // Xóa file ảnh khỏi thư mục
+        //        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", image.ImageUrl.TrimStart('/'));
+        //        if (File.Exists(filePath))
+        //        {
+        //            File.Delete(filePath);
+        //        }
+        //    }
+
+        //    await _unitOfWork.SaveChangesAsync();
+
+        //    // Lưu các ảnh mới
+        //    var newImageUrls = await ValidateAndSaveImagesAsync(productId, newImages);
+        //    foreach (var imageUrl in newImageUrls)
+        //    {
+        //        await SaveProductImageAsync(productId, imageUrl);
+        //    }
+
+        //    return true;
+        //}
+
+
+
+
+        public async Task<bool> UpdateProductAsync(int productId, ViewCreateProductModel model, List<IFormFile> newImages, List<string> imagesToKeep)
+        {
+            var product = await _unitOfWork.ProductRepository.GetByIdAsync(productId);
+            if (product == null)
+            {
+                return false;
+            }
+
+            // Cập nhật thông tin sản phẩm
+            product.ProductName = model.ProductName;
+            product.Description = model.Description;
+            product.Quantity = model.Quantity;
+            product.BrandName = model.BrandName;
+            product.Price = model.Price;
+            product.CategoryId = model.CategoryId;
+
+            _unitOfWork.ProductRepository.Update(product);
+            await _unitOfWork.SaveChangesAsync();
+
+            // Xóa các ảnh không còn trong danh sách giữ lại
+            var oldImages = await _unitOfWork.ProductImageRepository.GetQuery()
+                .Where(pi => pi.ProductId == productId)
+                .ToListAsync();
+
+            foreach (var image in oldImages)
+            {
+                if (!imagesToKeep.Contains(image.ImageUrl))
+                {
+                    _unitOfWork.ProductImageRepository.Delete(image);
+
+                    // Xóa file ảnh khỏi thư mục
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", image.ImageUrl.TrimStart('/'));
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                }
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+
+            // Lưu các ảnh mới
+            var newImageUrls = await ValidateAndSaveImagesAsync(productId, newImages);
+            foreach (var imageUrl in newImageUrls)
+            {
+                await SaveProductImageAsync(productId, imageUrl);
+            }
+
+            return true;
+        }
         public async Task<List<ProductViewModel>> GetAllProductsByCategoryAsync(int categoryId)
         {
             var products = await _unitOfWork.ProductRepository.GetQuery()
@@ -115,7 +255,9 @@ namespace Project.Servie.Service.Products
                     Quantity = p.Quantity,
                     BrandName = p.BrandName,
                     CreatedAt = p.CreatedAt,
-                    ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(), 
+                    Price = (decimal)p.Price,
+                    UserId = p.User.UserId,
+                    ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                     CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                 })
                 .ToListAsync();
@@ -123,7 +265,7 @@ namespace Project.Servie.Service.Products
             return products;
         }
 
-        
+
 
         public async Task<List<ProductViewModel>> GetAllProducts()
         {
@@ -136,6 +278,8 @@ namespace Project.Servie.Service.Products
                         Quantity = p.Quantity,
                         BrandName = p.BrandName,
                         CreatedAt = p.CreatedAt,
+                        Price = (decimal)p.Price,
+                        UserId = p.User.UserId,
                         ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                         CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                     })
@@ -147,7 +291,7 @@ namespace Project.Servie.Service.Products
         public async Task<List<ProductViewModel>> SearchProducts(string name)
         {
             var products = await _unitOfWork.ProductRepository.GetQuery()
-                .Where(p => p.ProductName.Contains(name)) 
+                .Where(p => p.ProductName.Contains(name))
                 .Select(p => new ProductViewModel
                 {
                     ProductId = p.ProductId,
@@ -156,6 +300,7 @@ namespace Project.Servie.Service.Products
                     Quantity = p.Quantity,
                     BrandName = p.BrandName,
                     CreatedAt = p.CreatedAt,
+                    UserId = p.User.UserId,
                     ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                     CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                 })
@@ -176,6 +321,7 @@ namespace Project.Servie.Service.Products
                         Quantity = p.Quantity,
                         BrandName = p.BrandName,
                         CreatedAt = p.CreatedAt,
+                        UserId = p.User.UserId,
                         ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                         CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                     })
@@ -183,5 +329,28 @@ namespace Project.Servie.Service.Products
 
             return products;
         }
+
+        public async Task<decimal> GetProductPriceById(int productId)
+        {
+            var products = await _unitOfWork.ProductRepository.GetByIdAsync(productId);
+            return (decimal)products.Price;
+        }
+        public async Task UpdateProductQuantityAsync(int productId, int quantity)
+        {
+            var product = await _unitOfWork.ProductRepository.GetByIdAsync(productId);
+            if (product != null)
+            {
+                product.Quantity -= quantity;
+
+                // Make sure quantity doesn't go below zero
+                product.Quantity = Math.Max(0, product.Quantity);
+
+                _unitOfWork.ProductRepository.Update(product);
+                await _unitOfWork.SaveChangesAsync();
+            }
+        }
+
+
+
     }
 }

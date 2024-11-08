@@ -1,0 +1,188 @@
+﻿@page "/updateProduct/{id:int}"
+@model Project.RazorWeb.Pages.Seller.UpdateProductModel
+@{
+    ViewData["Title"] = "Update Product";
+}
+
+
+
+
+
+
+
+<h2>Update Product</h2>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Product.ProductName" class="form-label">Product Name</label>
+        <input asp-for="Product.ProductName" class="form-control" placeholder="Enter product name" />
+        <span asp-validation-for="Product.ProductName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.Description" class="form-label">Description</label>
+        <textarea asp-for="Product.Description" class="form-control" placeholder="Enter description"></textarea>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.Quantity" class="form-label">Quantity</label>
+        <input asp-for="Product.Quantity" type="number" class="form-control" />
+        <span asp-validation-for="Product.Quantity" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.BrandName" class="form-label">Brand Name</label>
+        <input asp-for="Product.BrandName" class="form-control" placeholder="Enter brand name" />
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.Price" class="form-label">Price</label>
+        <input asp-for="Product.Price" type="number" class="form-control" step="0.01" placeholder="Enter price" />
+        <span asp-validation-for="Product.Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.CategoryId" class="form-label">Category</label>
+        <select asp-for="Product.CategoryId" asp-items="@(new SelectList(Model.Categories, "CategoryId", "CategoryName"))" class="form-control">
+            <option value="">-- Select Category --</option>
+        </select>
+        <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+    </div>
+
+    <div id="existingImageGrid" class="image-grid mt-3">
+        @foreach (var imageUrl in Model.ExistingImageUrls)
+        {
+            <div class="image-grid-item" data-url="@imageUrl">
+                <img src="@imageUrl" class="img-thumbnail" />
+                <button type="button" class="remove-button" onclick="removeImage('@imageUrl')">&times;</button>
+                <!-- Hidden input để lưu URL ảnh cũ để giữ lại khi gửi form -->
+                <input type="hidden" name="ExistingImageUrls" value="@imageUrl" />
+            </div>
+        }
+
+      
+        <div id="newImageGrid" class="image-grid mt-3"></div>
+
+    </div>
+
+     <!-- Input cho ảnh mới -->
+        <div class="form-group mt-3">
+            <label for="newImages" class="form-label">Add New Images</label>
+            <input type="file" name="Product.Images" id="newImages" class="form-control" multiple accept=".jpg,.jpeg,.png" />
+        </div>
+
+
+    <button type="submit" class="btn btn-primary mt-4">Update Product</button>
+</form>
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const newImageInput = document.getElementById('newImages');
+        const newImageGrid = document.getElementById('newImageGrid');
+
+        // Thêm sự kiện khi chọn ảnh mới
+        newImageInput.addEventListener('change', function (event) {
+            const files = event.target.files;
+
+            // Lặp qua các file mới và thêm chúng vào bản xem trước
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'image-grid-item';
+
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'img-thumbnail';
+
+                    const removeButton = document.createElement('button');
+                    removeButton.className = 'remove-button';
+                    removeButton.innerHTML = '&times;';
+                    removeButton.onclick = function () {
+                        newImageGrid.removeChild(imageContainer);
+                    };
+
+                    imageContainer.appendChild(img);
+                    imageContainer.appendChild(removeButton);
+                    newImageGrid.appendChild(imageContainer);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Hàm xóa ảnh cũ khỏi bản xem trước và xóa input hidden
+        function removeImage(imageUrl) {
+            const existingImageContainer = document.querySelector(`[data-url="${imageUrl}"]`);
+            if (existingImageContainer) {
+                existingImageContainer.remove();
+
+                // Xóa input hidden chứa URL của ảnh cũ
+                const hiddenInput = document.querySelector(`input[value="${imageUrl}"]`);
+                if (hiddenInput) {
+                    hiddenInput.remove();
+                }
+            }
+        }
+    </script>
+}
+
+<style>
+    .image-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .image-grid-item {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+        .image-grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .remove-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: rgba(255, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 5px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 0.8rem;
+    }
+</style>

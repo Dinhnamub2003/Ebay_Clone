@@ -16,6 +16,8 @@ namespace Project.Model.ProductModel
         public DateTime? CreatedAt { get; set; }
         public string? FirstImageUrl { get; set; }
         public string? CategoryName { get; set; }
+		public decimal Price { get; set; }
+        public int UserId { get; set; }
         public List<string> ImageUrls { get; set; } = new List<string>();
     }
 }

@@ -156,6 +156,69 @@ namespace Project.Bussiness.Infrastructure
             }
         }
 
+
+        // Notification Repository
+        private IBaseRepository<Notification>? _notificationRepository;
+        public IBaseRepository<Notification> NotificationRepository
+        {
+            get
+            {
+                if (_notificationRepository == null)
+                {
+                    _notificationRepository = new BaseRepository<Notification, EbayClone1Context>(_appDbContext);
+                }
+                return _notificationRepository;
+            }
+        }
+
+      
+
+        // Transaction Repository
+        private IBaseRepository<Transaction>? _transactionRepository;
+        public IBaseRepository<Transaction> TransactionRepository
+        {
+            get
+            {
+                if (_transactionRepository == null)
+                {
+                    _transactionRepository = new BaseRepository<Transaction, EbayClone1Context>(_appDbContext);
+                }
+                return _transactionRepository;
+            }
+        }
+
+        // Wallet Repository
+        private IBaseRepository<Wallet>? _walletRepository;
+        public IBaseRepository<Wallet> WalletRepository
+        {
+            get
+            {
+                if (_walletRepository == null)
+                {
+                    _walletRepository = new BaseRepository<Wallet, EbayClone1Context>(_appDbContext);
+                }
+                return _walletRepository;
+            }
+        }
+
+
+        private IBaseRepository<TransactionType>? _transactionTypeRepository;
+        public IBaseRepository<TransactionType> TransactionTypeRepository
+        {
+            get
+            {
+                if (_transactionTypeRepository == null)
+                {
+                    _transactionTypeRepository = new BaseRepository<TransactionType, EbayClone1Context>(_appDbContext);
+                }
+                return _transactionTypeRepository;
+            }
+        }
+
+
+        
+
+
         // Generic repository method
         public IBaseRepository<T> GenericRepository<T>() where T : class
         {

@@ -6,6 +6,13 @@
 
 <h2>Add New Product</h2>
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
 <form method="post" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Product.ProductName" class="form-label">Product Name</label>
@@ -28,6 +35,13 @@
         <label asp-for="Product.BrandName" class="form-label">Brand Name</label>
         <input asp-for="Product.BrandName" class="form-control" placeholder="Enter brand name" />
     </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="Product.Price" class="form-label">Price</label>
+        <input asp-for="Product.Price" type="number" class="form-control" step="0.01" placeholder="Enter price" />
+        <span asp-validation-for="Product.Price" class="text-danger"></span>
+    </div>
+
 
     <div class="form-group mt-3">
         <label asp-for="Product.CategoryId" class="form-label">Category</label>
