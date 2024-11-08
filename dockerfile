@@ -16,13 +16,27 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish Project.RazorWeb/Project.RazorWeb.csproj -c Release -o out
 
+# Stage 2: Node.js environment for Node modules
+FROM node:20 AS node-env
+WORKDIR /app
+
+# Tạo thư mục node_modules nếu chưa có
+RUN mkdir -p Project.RazorWeb/node_modules
+
+# Sao chép thư mục node_modules nếu đã có sẵn
+COPY Project.RazorWeb/node_modules ./Project.RazorWeb/node_modules
+
 # Bước cuối: chạy ứng dụng trên image .NET Runtime (nhẹ hơn SDK)
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
+# Copy thư mục node_modules từ Node.js stage
+COPY --from=node-env /app/Project.RazorWeb/node_modules ./Project.RazorWeb/node_modules
+
+
 # Thiết lập biến môi trường nếu cần (tùy chọn)
-# ENV ASPNETCORE_ENVIRONMENT=Production
+# ENV ASPNETCORE_ENVIRONMENT=Development
 
 # Mở cổng 80 để truy cập vào ứng dụng
 EXPOSE 80
