@@ -1,15 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Project.Model.CategoryModel;
 using Project.Model.ProductModel;
 using Project.Servie.Service.Categories;
 using Project.Servie.Service.Products;
 using System.Collections.Generic;
-using System.IO;
+using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Project.RazorWeb.Pages.Seller
 {
+    [Authorize(Roles = "Admin")]
     public class PostProductModel : PageModel
     {
         private readonly IProductService _productService;
@@ -31,6 +34,8 @@ namespace Project.RazorWeb.Pages.Seller
             Categories = await _categoryService.GetAllCategoriesAsync();
         }
 
+      
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -41,7 +46,19 @@ namespace Project.RazorWeb.Pages.Seller
 
             try
             {
-                var productId = await _productService.AddProductAsync(Product);
+                // Lấy ID người dùng từ claim `NameIdentifier`
+                var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (string.IsNullOrEmpty(userIdClaim))
+                {
+                    //TempData["ErrorMessage"] = "User is not authenticated or token is missing required information.\n" ;
+                    //Categories = await _categoryService.GetAllCategoriesAsync();
+                    //return Page();
+
+                    return RedirectToPage("/Auth/Login");
+                }
+
+                var userId = int.Parse(userIdClaim);
+                var productId = await _productService.AddProductAsync(Product, userId);
 
                 if (Product.Images != null && Product.Images.Count > 0)
                 {
@@ -56,11 +73,13 @@ namespace Project.RazorWeb.Pages.Seller
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                TempData["ErrorMessage"] = $"An error occurred: {ex.Message}";
                 Categories = await _categoryService.GetAllCategoriesAsync();
                 return Page();
             }
         }
+
+
 
     }
 }

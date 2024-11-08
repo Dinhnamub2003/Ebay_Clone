@@ -70,7 +70,7 @@
             </div>
 
             <img style="width: 45px; height: 30px;" src="Assets/images/bell .svg" alt="">
-            <img style="width: 45px; height: 30px;" src="Assets/images/cart.svg" alt="">
+            <img style="width: 45px; height: 30px;" src="Assets/images/cart.svg"  alt="">
         </div>
     </div>
 
@@ -80,7 +80,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-1">
-                <svg onclick="homepage()" class="ebay-logo" xmlns="http://www.w3.org/2000/svg" viewBox=".1 .1 299.8 120.125">
+                <svg class="ebay-logo" xmlns="http://www.w3.org/2000/svg" viewBox=".1 .1 299.8 120.125">
                     <path fill="#e53238" d="M38.867 26.309C17.721 26.309.1 35.279.1 62.345c0 21.442 11.849 34.944 39.312 34.944 32.326 0 34.398-21.294 34.398-21.294H58.147s-3.358 11.466-19.69 11.466c-13.302 0-22.869-8.986-22.869-21.58h59.861v-7.904c0-12.46-7.91-31.668-36.582-31.668zM38.32 36.41c12.662 0 21.294 7.757 21.294 19.383h-43.68c0-12.343 11.268-19.383 22.386-19.383z" />
                     <path fill="#0064d2" d="M75.438.1v83.597c0 4.745-.339 11.408-.339 11.408h14.939s.537-4.785.537-9.159c0 0 7.381 11.548 27.451 11.548 21.134 0 35.49-14.674 35.49-35.695 0-19.557-13.186-35.286-35.456-35.286-20.854 0-27.334 11.261-27.334 11.261V.1H75.438zm38.766 36.753c14.352 0 23.479 10.652 23.479 24.946 0 15.328-10.541 25.355-23.376 25.355-15.318 0-23.581-11.961-23.581-25.219 0-12.354 7.414-25.082 23.478-25.082z" />
                     <path fill="#f5af02" d="M190.645 26.309c-31.812 0-33.852 17.418-33.852 20.202h15.834s.83-10.169 16.926-10.169c10.459 0 18.564 4.788 18.564 13.991v3.276h-18.564c-24.645 0-37.674 7.21-37.674 21.841 0 14.398 12.038 22.232 28.307 22.232 22.172 0 29.314-12.251 29.314-12.251 0 4.873.375 9.675.375 9.675h14.076s-.545-5.952-.545-9.76V52.432c0-21.582-17.408-26.123-32.761-26.123zm17.472 37.128v4.368c0 5.697-3.516 19.861-24.212 19.861-11.333 0-16.192-5.656-16.192-12.217 0-11.935 16.363-12.012 40.404-12.012z" />
@@ -670,216 +670,223 @@
         </div>
 
         <div class="row" style="justify-content: center;">
-            <div class="custom-categories custom-column">
-                <div class="card-body" onclick="window.location.href='/shop/products/1'">
-                    <a class="custom-link"><img src="Assets/images/iphone.jpg" class="card-img-top" alt="...">Electronics</a>
-                </div>
-            </div>
-            <div class="custom-categories custom-column">
-                <div class="card-body" onclick="window.location.href='/shop/products/2'">
-                    <a class="custom-link"><img src="Assets/images/books.jpg" class="card-img-top" alt="...">Books</a>
-                </div>
-            </div>
-            <div class="custom-categories custom-column">
-                <div class="card-body" onclick="window.location.href='/shop/products/3'">
-                    <a class="custom-link"><img src="Assets/images/bags.jpg" class="card-img-top" alt="...">Clothings</a>
-                </div>
-            </div>
+            @foreach (var category in Model.Categories)
+            {
                 <div class="custom-categories custom-column">
-                <div class="card-body" onclick="window.location.href='/shop/products/4'">
-                    <a class="custom-link"><img src="Assets/images/watch.jpg" class="card-img-top" alt="...">Watchs</a>
+                    <div class="card-body" onclick="window.location.href='/shop/products/@category.CategoryId'">
+                        <a class="custom-link">
+                            <!-- Sử dụng ảnh tĩnh dựa trên CategoryId -->
+                            @{
+                                string imageUrl = "";
+                                switch (category.CategoryId)
+                                {
+                                    case 1:
+                                        imageUrl = "Assets/images/iphone.jpg"; // Ảnh cho danh mục Electronics
+                                        break;
+                                    case 2:
+                                        imageUrl = "Assets/images/bags.jpg"; // Ảnh cho danh mục Clothings
+                                        break;
+                                    case 3:
+                                        imageUrl = "Assets/images/box.jpg"; // Ảnh cho danh mục Home Appliances
+                                        break;
+                                    // Thêm các trường hợp khác nếu cần
+                                    default:
+                                        imageUrl = "Assets/images/default.jpg"; // Ảnh mặc định nếu không có danh mục phù hợp
+                                        break;
+                                }
+                            }
+                            <img src="@imageUrl" class="card-img-top" alt="@category.CategoryName" />
+                            <span>@category.CategoryName</span> <!-- Hiển thị tên danh mục -->
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+
+
+
+    </div>
+
+
+    <div>
+        <h3 onclick="fetchCategory(18)" class="custom-link custom-header">Today's Deals-All With Frees Shipping</h3>
+        <h6 onclick="fetchCategory(18)" class="custom-link custom-see-all">see all</h6>
+    </div>
+
+
+
+    <div class=" cards-container">
+        <div class="row" style="width: 1800px;" id="cardGroup">
+            <div class="card card-dimensions">
+                <!-- onclick="sendProductDetails()"  -->
+                <div class="custom-image-background">
+                    <div style="position: relative;">
+
+                        <img id="campusimg" onclick="fetchFeaturedProductData(101)" src="Assets/images/campus.jpg" class="custom-card" alt="...">
+                        <div>
+                            <svg class="custom-circle" width="100" height="100">
+
+                                <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
+
+
+                                <svg id="campus" onclick="heartFunction('campus','campusimg','campusinfo') " x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+                                    <path id="img" fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 id="campusinfo" href="" class="custom-link">Campus 80s Shoes</h6>
+
+                    <h6 href="#" class="card-link">150$</h6>
                 </div>
             </div>
-            <div class="custom-categories custom-column">
-                <div class="card-body" onclick="window.location.href='/shop/products/5'">
-                    <a class="custom-link"><img src="Assets/images/cards.jpg" class="card-img-top" alt="...">Cards</a>
+
+            <div class="card card-dimensions">
+                <div class="custom-image-background">
+                    <div style="position: relative;">
+
+                        <img id="dysonimg" onclick="fetchFeaturedProductData(102)" src="Assets/images/vacuum-cleaner.jpg" class="custom-card" alt="...">
+
+                        <div>
+                            <svg class="custom-circle" width="100" height="100">
+
+                                <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
+
+
+                                <svg onclick="heartFunction('dyson','dysonimg','dysoninfo')" id="dyson" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+                                    <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 id="dysoninfo" href="" class="custom-link">Dyson V11 Vacuum Cleaner</h6>
+
+                    <h6 href="#" class="card-link">150$</h6>
+                </div>
+            </div>
+
+            <div class="card card-dimensions">
+                <div class="custom-image-background">
+                    <div style="position: relative;">
+
+                        <img id="ecoflowimg" onclick="fetchFeaturedProductData(103)" src="Assets/images/EcoFlow.jpg" class="custom-card" alt="...">
+
+                        <div>
+                            <svg class="custom-circle" width="100" height="100">
+
+                                <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
+
+
+                                <svg onclick="heartFunction('ecoflow','ecoflowimg','ecoflowinfo')" id="ecoflow" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+                                    <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <h6 id="ecoflowinfo" href="" class="custom-link">EcoFlow DELTA Portable Power Station</h6>
+                    <h6 href="#" class="card-link">150$</h6>
+                </div>
+            </div>
+
+
+            <div class="card card-dimensions">
+                <div class="custom-image-background">
+                    <div style="position: relative;">
+
+                        <img id="laptopimg" onclick="fetchFeaturedProductData(104)" src="Assets/images/laptop.jpg" class="custom-card" alt="...">
+
+                        <div>
+                            <svg class="custom-circle" width="100" height="100">
+
+                                <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
+
+
+                                <svg onclick="heartFunction('laptop','laptopimg','laptopinfo')" id="laptop" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+                                    <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 id="laptopinfo" href="" class="custom-link">Lenovo IdeaPad Gaming 3 AMD Laptop, 15.6"FHD</h6>
+                    <h6 href="#" class="card-link">150$</h6>
+                </div>
+            </div>
+
+            <div class="card card-dimensions">
+                <div class="custom-image-background">
+                    <div style="position: relative;">
+
+                        <img id="crocsimg" onclick="fetchFeaturedProductData(105)" src="Assets/images/crocs.jpg" class="custom-card" alt="...">
+
+                        <div>
+                            <svg class="custom-circle" width="100" height="100">
+
+                                <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
+
+
+                                <svg onclick="heartFunction('crocs','crocsimg','crocsinfo')" id="crocs" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+                                    <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 id="crocsinfo" href="" class="custom-link">Crocs Men's and Women Shoes - Bayaband Chevron Clogs</h6>
+                    <h6 href="#" class="card-link">150$</h6>
+                </div>
+            </div>
+
+            <div class="card card-dimensions">
+                <div class="custom-image-background">
+                    <div style="position: relative;">
+
+                        <img id="iphoneimg" onclick="fetchFeaturedProductData(106)" git src="Assets/images/iphone.jpg" class="custom-card" alt="...">
+                        <div>
+                            <svg class="custom-circle" width="100" height="100">
+
+                                <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
+
+
+                                <svg onclick="heartFunction('iphone','iphoneimg','iphoneinfo')" id="iphone" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
+                                    <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h6 id="iphoneinfo" href="" class="custom-link">Apple iPhone 15 128GB Factory Unlocked</h6>
+
+                    <h6 href="#" class="card-link">150$</h6>
                 </div>
             </div>
         </div>
-
-            
-        </div>
-
-
-        <div>
-            <h3 onclick="fetchCategory(18)" class="custom-link custom-header">Today's Deals-All With Frees Shipping</h3>
-            <h6 onclick="fetchCategory(18)" class="custom-link custom-see-all">see all</h6>
-        </div>
-
-
-
-        <div class=" cards-container">
-            <div class="row" style="width: 1800px;" id="cardGroup">
-                <div class="card card-dimensions">
-                    <!-- onclick="sendProductDetails()"  -->
-                    <div class="custom-image-background">
-                        <div style="position: relative;">
-
-                            <img id="campusimg" onclick="fetchFeaturedProductData(101)" src="Assets/images/campus.jpg" class="custom-card" alt="...">
-                            <div>
-                                <svg class="custom-circle" width="100" height="100">
-
-                                    <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
-
-
-                                    <svg id="campus" onclick="heartFunction('campus','campusimg','campusinfo') " x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
-                                        <path id="img" fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                    </svg>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6 id="campusinfo" href="" class="custom-link">Campus 80s Shoes</h6>
-
-                        <h6 href="#" class="card-link">150$</h6>
-                    </div>
-                </div>
-
-                <div class="card card-dimensions">
-                    <div class="custom-image-background">
-                        <div style="position: relative;">
-
-                            <img id="dysonimg" onclick="fetchFeaturedProductData(102)" src="Assets/images/vacuum-cleaner.jpg" class="custom-card" alt="...">
-
-                            <div>
-                                <svg class="custom-circle" width="100" height="100">
-
-                                    <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
-
-
-                                    <svg onclick="heartFunction('dyson','dysonimg','dysoninfo')" id="dyson" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
-                                        <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                    </svg>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6 id="dysoninfo" href="" class="custom-link">Dyson V11 Vacuum Cleaner</h6>
-
-                        <h6 href="#" class="card-link">150$</h6>
-                    </div>
-                </div>
-
-                <div class="card card-dimensions">
-                    <div class="custom-image-background">
-                        <div style="position: relative;">
-
-                            <img id="ecoflowimg" onclick="fetchFeaturedProductData(103)" src="Assets/images/EcoFlow.jpg" class="custom-card" alt="...">
-
-                            <div>
-                                <svg class="custom-circle" width="100" height="100">
-
-                                    <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
-
-
-                                    <svg onclick="heartFunction('ecoflow','ecoflowimg','ecoflowinfo')" id="ecoflow" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
-                                        <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                    </svg>
-                                </svg>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-body">
-                        <h6 id="ecoflowinfo" href="" class="custom-link">EcoFlow DELTA Portable Power Station</h6>
-                        <h6 href="#" class="card-link">150$</h6>
-                    </div>
-                </div>
-
-
-                <div class="card card-dimensions">
-                    <div class="custom-image-background">
-                        <div style="position: relative;">
-
-                            <img id="laptopimg" onclick="fetchFeaturedProductData(104)" src="Assets/images/laptop.jpg" class="custom-card" alt="...">
-
-                            <div>
-                                <svg class="custom-circle" width="100" height="100">
-
-                                    <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
-
-
-                                    <svg onclick="heartFunction('laptop','laptopimg','laptopinfo')" id="laptop" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
-                                        <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                    </svg>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6 id="laptopinfo" href="" class="custom-link">Lenovo IdeaPad Gaming 3 AMD Laptop, 15.6"FHD</h6>
-                        <h6 href="#" class="card-link">150$</h6>
-                    </div>
-                </div>
-
-                <div class="card card-dimensions">
-                    <div class="custom-image-background">
-                        <div style="position: relative;">
-
-                            <img id="crocsimg" onclick="fetchFeaturedProductData(105)" src="Assets/images/crocs.jpg" class="custom-card" alt="...">
-
-                            <div>
-                                <svg class="custom-circle" width="100" height="100">
-
-                                    <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
-
-
-                                    <svg onclick="heartFunction('crocs','crocsimg','crocsinfo')" id="crocs" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
-                                        <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                    </svg>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6 id="crocsinfo" href="" class="custom-link">Crocs Men's and Women Shoes - Bayaband Chevron Clogs</h6>
-                        <h6 href="#" class="card-link">150$</h6>
-                    </div>
-                </div>
-
-                <div class="card card-dimensions">
-                    <div class="custom-image-background">
-                        <div style="position: relative;">
-
-                            <img id="iphoneimg" onclick="fetchFeaturedProductData(106)" git src="Assets/images/iphone.jpg" class="custom-card" alt="...">
-                            <div>
-                                <svg class="custom-circle" width="100" height="100">
-
-                                    <circle cx="20" cy="20" r="15" fill="#dbdbdbc9" />
-
-
-                                    <svg onclick="heartFunction('iphone','iphoneimg','iphoneinfo')" id="iphone" x="5" y="7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="30">
-                                        <path fill="#fffffff4" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                                    </svg>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h6 id="iphoneinfo" href="" class="custom-link">Apple iPhone 15 128GB Factory Unlocked</h6>
-
-                        <h6 href="#" class="card-link">150$</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
+    </div>
 
 
 
 
 
 
-        <div class="container custom-container custom-slide-three-image">
-            <h1>It's all for the road</h1>
-            <p>Find the parts and accessories you need on eBay.</p>
-            <button onclick="fetchCategory(18)" type="button" style="background-color: transparent; color: #ffffff; border: 1px solid #ffffff; transition: background-color 0.3s ease, color 0.3s ease;"
-                    onmouseover="this.style.backgroundColor='white'; this.style.color='black';"
-                    onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ffffff';">
-                Explore offers
-            </button>
-        </div>
+    <div class="container custom-container custom-slide-three-image">
+        <h1>It's all for the road</h1>
+        <p>Find the parts and accessories you need on eBay.</p>
+        <button onclick="fetchCategory(18)" type="button" style="background-color: transparent; color: #ffffff; border: 1px solid #ffffff; transition: background-color 0.3s ease, color 0.3s ease;"
+                onmouseover="this.style.backgroundColor='white'; this.style.color='black';"
+                onmouseout="this.style.backgroundColor='transparent'; this.style.color='#ffffff';">
+            Explore offers
+        </button>
+    </div>
 
     </div>
 

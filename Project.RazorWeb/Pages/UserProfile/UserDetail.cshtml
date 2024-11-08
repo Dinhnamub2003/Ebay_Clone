@@ -1,0 +1,1120 @@
+﻿@page "/user/profile/{id}"
+@model Project.RazorWeb.Pages.UserProfile.UserDetailModel
+@{
+    ViewData["Title"] = "User Profile - Products and Information";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"]</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <style type="text/css">
+        body {
+            background: #eee;
+            margin-top: 20px;
+        }
+
+        .page-inner.no-page-title {
+            padding-top: 30px;
+        }
+
+        .page-inner {
+            position: relative;
+            min-height: calc(100% - 56px);
+            padding: 20px 30px 40px 30px;
+            background: #f3f4f7;
+        }
+
+        .card.card-white {
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            box-shadow: 0 0.05rem 0.01rem rgba(75, 75, 90, 0.075);
+            padding: 25px;
+        }
+
+        .grid-margin {
+            margin-bottom: 2rem;
+        }
+
+        .profile-timeline ul li .timeline-item-header {
+            width: 100%;
+            overflow: hidden;
+        }
+
+            .profile-timeline ul li .timeline-item-header img {
+                width: 40px;
+                height: 40px;
+                float: left;
+                margin-right: 10px;
+                border-radius: 50%;
+            }
+
+            .profile-timeline ul li .timeline-item-header p {
+                margin: 0;
+                color: #000;
+                font-weight: 500;
+            }
+
+                .profile-timeline ul li .timeline-item-header p span {
+                    margin: 0;
+                    color: #8e8e8e;
+                    font-weight: normal;
+                }
+
+            .profile-timeline ul li .timeline-item-header small {
+                margin: 0;
+                color: #8e8e8e;
+            }
+
+        .profile-timeline ul li .timeline-item-post {
+            padding: 20px 0 0 0;
+            position: relative;
+        }
+
+            .profile-timeline ul li .timeline-item-post > img {
+                width: 100%;
+            }
+
+        .timeline-options {
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #f1f1f1;
+            padding: 10px 0 10px 0;
+        }
+
+            .timeline-options a {
+                display: block;
+                margin-right: 20px;
+                float: left;
+                color: #2b2b2b;
+                text-decoration: none;
+            }
+
+                .timeline-options a i {
+                    margin-right: 3px;
+                }
+
+                .timeline-options a:hover {
+                    color: #5369f8;
+                }
+
+        .timeline-comment {
+            overflow: hidden;
+            margin-bottom: 10px;
+            width: 100%;
+            border-bottom: 1px solid #f1f1f1;
+            padding-bottom: 5px;
+        }
+
+            .timeline-comment .timeline-comment-header {
+                overflow: hidden;
+            }
+
+                .timeline-comment .timeline-comment-header img {
+                    width: 30px;
+                    border-radius: 50%;
+                    float: left;
+                    margin-right: 10px;
+                }
+
+                .timeline-comment .timeline-comment-header p {
+                    color: #000;
+                    float: left;
+                    margin: 0;
+                    font-weight: 500;
+                }
+
+                .timeline-comment .timeline-comment-header small {
+                    font-weight: normal;
+                    color: #8e8e8e;
+                }
+
+            .timeline-comment p.timeline-comment-text {
+                display: block;
+                color: #2b2b2b;
+                font-size: 14px;
+                padding-left: 40px;
+            }
+
+        .post-options {
+            overflow: hidden;
+            margin-top: 15px;
+            margin-left: 15px;
+        }
+
+            .post-options a {
+                display: block;
+                margin-top: 5px;
+                margin-right: 20px;
+                float: left;
+                color: #2b2b2b;
+                text-decoration: none;
+                font-size: 16px !important;
+            }
+
+                .post-options a:hover {
+                    color: #5369f8;
+                }
+
+        .online {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            display: block;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #ccc;
+        }
+
+            .online.on {
+                background: #2ec5d3;
+            }
+
+            .online.off {
+                background: #ec5e69;
+            }
+
+        #cd-timeline::before {
+            border: 0;
+            background: #f1f1f1;
+        }
+
+        .cd-timeline-content p,
+        .cd-timeline-content .cd-read-more,
+        .cd-timeline-content .cd-date {
+            font-size: 14px;
+        }
+
+        .cd-timeline-img.cd-success {
+            background: #2ec5d3;
+        }
+
+        .cd-timeline-img.cd-danger {
+            background: #ec5e69;
+        }
+
+        .cd-timeline-img.cd-info {
+            background: #5893df;
+        }
+
+        .cd-timeline-img.cd-warning {
+            background: #f1c205;
+        }
+
+        .cd-timeline-img.cd-primary {
+            background: #9f7ce1;
+        }
+
+        .page-inner.full-page {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+        }
+
+        .user-profile-card {
+            text-align: center;
+        }
+
+        .user-profile-image {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .team .team-member {
+            display: block;
+            overflow: hidden;
+            margin-bottom: 10px;
+            float: left;
+            position: relative;
+        }
+
+            .team .team-member .online {
+                top: 5px;
+                right: 5px;
+            }
+
+            .team .team-member img {
+                width: 40px;
+                float: left;
+                border-radius: 50%;
+                margin: 0 5px 0 5px;
+            }
+
+        .label.label-success {
+            background: #43d39e;
+        }
+
+        .label {
+            font-weight: 400;
+            padding: 4px 8px;
+            font-size: 11px;
+            display: inline-block;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: 0.25em;
+        }
+
+        /* Modal hiển thị ảnh */
+        .image-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            z-index: 20;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-image {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: #ffffff;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+            .close-modal:hover {
+                color: #ff0000;
+            }
+
+        .avatar-options button {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            margin: 8px 0;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+        }
+
+            .avatar-options button:hover {
+                background-color: #0056b3;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                transform: translateY(-2px);
+            }
+
+            .avatar-options button:active {
+                background-color: #004085;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transform: translateY(0);
+            }
+
+        /* Nút "Cập nhật thông tin" */
+        .update-button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+            .update-button:hover {
+                background-color: #218838;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                transform: translateY(-2px);
+            }
+
+            .update-button:active {
+                background-color: #1e7e34;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transform: translateY(0);
+            }
+
+        /* Nút "Follow" và "Message" */
+        .btn-theme {
+            background-color: #6c757d;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin: 5px 0;
+        }
+
+            .btn-theme:hover {
+                background-color: #5a6268;
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+                transform: translateY(-2px);
+            }
+
+            .btn-theme:active {
+                background-color: #4e555b;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                transform: translateY(0);
+            }
+
+
+        /* Định dạng lại nút điều hướng */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.5); /* Màu nền cho icon điều hướng */
+            border-radius: 50%; /* Bo tròn icon */
+            padding: 10px; /* Khoảng cách bên trong icon */
+        }
+
+            .carousel-control-prev-icon:hover,
+            .carousel-control-next-icon:hover {
+                background-color: rgba(0, 0, 0, 0.8); /* Đổi màu khi hover */
+            }
+
+        /* Định dạng lại phần chỉ số ảnh */
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.5); /* Nền tối giúp chữ nổi bật hơn */
+            color: white; /* Màu chữ */
+            font-size: 16px; /* Cỡ chữ */
+            padding: 5px 10px; /* Khoảng cách bên trong */
+            border-radius: 5px; /* Bo góc */
+        }
+        /* Định dạng chung */
+        .profile-timeline {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .profile-timeline h3 {
+                font-size: 24px;
+                font-weight: bold;
+                color: #333;
+                margin-bottom: 20px;
+            }
+
+        /* Định dạng từng mục sản phẩm */
+        .timeline-item {
+            margin-bottom: 20px;
+        }
+
+        .card.card-white {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Định dạng phần tiêu đề sản phẩm */
+        .timeline-item-header h5 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 5px;
+        }
+
+        .timeline-item-header small {
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* Định dạng phần mô tả sản phẩm */
+        .timeline-item-post p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+            .timeline-item-post p strong {
+                color: #333;
+            }
+
+        /* Định dạng carousel ảnh sản phẩm */
+        .carousel {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .carousel-inner img {
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .carousel-caption {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: 500;
+            bottom: 10px;
+        }
+
+        /* Định dạng nút điều hướng của carousel */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 50%;
+            padding: 10px;
+        }
+
+            .carousel-control-prev-icon:hover,
+            .carousel-control-next-icon:hover {
+                background-color: rgba(0, 0, 0, 0.8);
+            }
+
+        /* Định dạng phần tùy chọn bên dưới mỗi sản phẩm */
+        .timeline-options {
+            display: flex;
+            gap: 15px;
+        }
+
+            .timeline-options a {
+                font-size: 14px;
+                color: #007bff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+            }
+
+                .timeline-options a i {
+                    margin-right: 5px;
+                }
+
+                .timeline-options a:hover {
+                    color: #0056b3;
+                }
+
+        .timeline-options {
+            display: flex;
+            gap: 15px;
+        }
+
+            .timeline-options a {
+                font-size: 14px;
+                color: #007bff;
+                text-decoration: none;
+                display: flex;
+                align-items: center;
+            }
+
+                .timeline-options a i {
+                    margin-right: 5px;
+                }
+
+                .timeline-options a:hover {
+                    color: #0056b3;
+                }
+
+        /* Định dạng các nút chia sẻ */
+        .share-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+            .share-options.d-none {
+                display: none;
+            }
+
+        .shareBtn {
+            background-color: #f1f1f1;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+            .shareBtn i {
+                margin-right: 5px;
+            }
+
+            .shareBtn:hover {
+                background-color: #ddd;
+            }
+
+            /* Tùy chọn màu cho từng mạng xã hội */
+            .shareBtn[data-social="facebook"] {
+                color: #3b5998;
+            }
+
+            .shareBtn[data-social="twitter"] {
+                color: #1da1f2;
+            }
+
+            .shareBtn[data-social="instagram"] {
+                color: #e4405f;
+            }
+
+            .shareBtn[data-social="line"] {
+                color: #00c300;
+            }
+
+            .shareBtn[data-social="telegram"] {
+                color: #0088cc;
+            }
+        /* Đặt vị trí và độ ưu tiên hiển thị cho share-options */
+        .share-options {
+            position: absolute; /* Đảm bảo nằm trên các phần tử khác */
+            background-color: white; /* Nền trắng để dễ nhìn */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            z-index: 1000; /* Độ ưu tiên cao hơn các phần tử khác */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Điều chỉnh vị trí của .share-options nếu cần */
+        .timeline-options {
+            position: relative; /* Để .share-options định vị so với .timeline-options */
+        }
+
+        /* Định dạng các nút chia sẻ */
+        .shareBtn {
+            background-color: #f1f1f1;
+            border: none;
+            padding: 5px 10px;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+            .shareBtn i {
+                margin-right: 5px;
+            }
+
+            .shareBtn:hover {
+                background-color: #ddd;
+            }
+
+    </style>
+</head>
+<body>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <div class="container">
+        <div class="page-inner no-page-title">
+            <div id="main-wrapper">
+                <div class="row">
+                    <!-- Thông tin người dùng -->
+                    <div class="col-lg-5 col-xl-3">
+                        <div class="card card-white grid-margin">
+                            <div class="card-heading clearfix">
+                                <h4 class="card-title">User Profile</h4>
+                            </div>
+                            <div class="card-body user-profile-card mb-3">
+                                <div class="avatar-section">
+                                    <img src="@(Model.Users.Avatar ?? "/avatar/default-avatar.png")"
+                                         class="user-profile-image rounded-circle"
+                                         alt="User Avatar"
+                                         id="avatar" />
+                                    <div id="avatarOptions" class="avatar-options" style="display: none;">
+                                        <button onclick="viewAvatar()">Xem ảnh</button>
+                                        <button onclick="document.getElementById('fileInput').click()">Cập nhật ảnh</button>
+                                        
+                                    </div>
+                                    <form method="post" enctype="multipart/form-data" asp-page-handler="UploadAvatar">
+                                        <input type="file" id="fileInput" name="avatar" accept="image/png, image/jpeg" style="display:none;" onchange="this.form.submit()" />
+                                    </form>
+                                </div>
+                                <h4 class="text-center h6 mt-2" id="fullname">@Model.Users.Fullname</h4>
+                                <p class="text-center small">@Model.Users.Username</p>
+                                <button class="btn btn-theme btn-sm">Follow</button>
+                                <button class="btn btn-theme btn-sm">Message</button>
+
+                                <a href="@Url.Page("/UserProfile/UpdateProfile", new { id = Model.Users.UserId })">
+                                    <button type="button">Cập nhật thông tin</button>
+                                </a>
+                            </div>
+                            <hr />
+                            <div class="card-heading clearfix mt-3">
+                                <h4 class="card-title">Contact Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-borderless mb-0 text-muted">
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Email:</th>
+                                                <td id="email">@Model.Users.Email</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Phone:</th>
+                                                <td id="phoneNumber">@Model.Users.PhoneNumber</td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">Address:</th>
+                                                <td id="address">@Model.Users.Address</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Danh sách sản phẩm của người dùng -->
+                    @if (ViewData["Message"] != null)
+                    {
+                        <script>
+
+                            setTimeout(function () {
+                                Swal.fire({
+                                    title: 'Thông báo',
+                                    text: "@Html.Raw(ViewData["Message"])",
+                                    icon: 'info',
+                                    confirmButtonText: 'OK',
+                                    timer: 15000, // Thời gian hiển thị 6 giây
+                                    timerProgressBar: true
+                                });
+                            }, 4000);
+                        </script>
+                    }
+
+
+
+
+                    <div class="col-lg-7 col-xl-6">
+                        <div class="profile-timeline">
+                            <h3>Products Posted by User</h3>
+                            @if (Model.UserProducts.Count == 0)
+                            {
+                                <p>Người dùng chưa đăng sản phẩm nào.</p>
+                            }
+                            else
+                            {
+
+
+                                <ul class="list-unstyled">
+                                    @foreach (var product in Model.UserProducts)
+                                    {
+                                        <li class="timeline-item" id="product-item-@product.ProductId">
+                                            <div class="card card-white grid-margin">
+                                                <div class="card-body">
+                                                    <div class="timeline-item-header">
+                                                        <h5 id="productName-@product.ProductId">@product.ProductName</h5>
+                                                        <small>@product.CreatedAt?.ToString("dd/MM/yyyy")</small>
+                                                    </div>
+                                                    <div class="timeline-item-post">
+                                                        <p id="productDescription-@product.ProductId">@product.Description</p>
+                                                        <p id="productPrice-@product.ProductId"><strong>Price:</strong> @product.Price?.ToString("C")</p>
+                                                        <p id="productQuantity-@product.ProductId"><strong>Quantity:</strong> @product.Quantity</p>
+                                                        <p id="brandName-@product.ProductId"><strong>Brand:</strong> @product.BrandName</p>
+
+                                                        <!-- Carousel hiển thị ảnh sản phẩm nếu có -->
+                                                        @if (product.ProductImages != null && product.ProductImages.Any())
+                                                        {
+                                                            <div id="carousel-@product.ProductId" class="carousel slide" data-bs-ride="carousel">
+                                                                <!-- Hiển thị tổng số ảnh và index hiện tại -->
+                                                                <div class="carousel-caption d-none d-md-block">
+                                                                    <span id="carousel-index-@product.ProductId">1</span> / <span>@product.ProductImages.Count</span>
+                                                                </div>
+
+                                                                <div class="carousel-inner" id="imageGallery-@product.ProductId">
+                                                                    @foreach (var image in product.ProductImages.Select((img, index) => new { img, index }))
+                                                                    {
+                                                                        <div class="carousel-item @(image.index == 0 ? "active" : "")">
+                                                                            <img src="@image.img.ImageUrl" class="d-block w-100 rounded" alt="Product Image" onclick="openImageModal('@image.img.ImageUrl')" />
+                                                                        </div>
+                                                                    }
+                                                                </div>
+
+                                                                <!-- Các nút điều hướng Carousel -->
+                                                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@product.ProductId" data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Previous</span>
+                                                                </button>
+                                                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-@product.ProductId" data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Next</span>
+                                                                </button>
+                                                            </div>
+                                                        }
+
+                                                        <div class="timeline-options mt-3">
+                                                            <a href="#"><i class="fa fa-thumbs-up"></i> Like</a>
+                                                            <a href="#"><i class="fa fa-comment"></i> Comment</a>
+                                                            <a href="#" onclick="toggleShareOptions(event)"><i class="fa fa-share"></i> Share</a>
+                                                            <div class="share-options d-none">
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="facebook"><i class="fa fa-facebook"></i> Facebook</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="twitter"><i class="fa fa-twitter"></i> Twitter</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="instagram"><i class="fa fa-instagram"></i> Instagram</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="line"><i class="fa fa-line"></i> Line</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="telegram"><i class="fa fa-telegram"></i> Telegram</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul>
+
+
+
+                               @*  <ul class="list-unstyled">
+                                    @foreach (var product in Model.UserProducts)
+                                    {
+                                        <li class="timeline-item">
+                                            <div class="card card-white grid-margin">
+                                                <div class="card-body">
+                                                    <div class="timeline-item-header">
+                                                        <h5>@product.ProductName</h5>
+                                                        <small>@product.CreatedAt?.ToString("dd/MM/yyyy")</small>
+                                                    </div>
+                                                    <div class="timeline-item-post">
+                                                        <p>@product.Description</p>
+                                                        <p><strong>Price:</strong> @product.Price?.ToString("C")</p>
+                                                        <p><strong>Quantity:</strong> @product.Quantity</p>
+                                                        <p><strong>Brand:</strong> @product.BrandName</p>
+
+                                                        <!-- Carousel hiển thị ảnh sản phẩm nếu có -->
+                                                        <!-- Carousel hiển thị ảnh sản phẩm nếu có -->
+                                                        @if (product.ProductImages != null && product.ProductImages.Any())
+                                                        {
+                                                            <div id="carousel-@product.ProductId" class="carousel slide" data-bs-ride="carousel">
+                                                                <!-- Hiển thị tổng số ảnh và index hiện tại -->
+                                                                <div class="carousel-caption d-none d-md-block">
+                                                                    <span id="carousel-index-@product.ProductId">1</span> / <span>@product.ProductImages.Count</span>
+                                                                </div>
+
+                                                                <div class="carousel-inner">
+                                                                    @foreach (var image in product.ProductImages.Select((img, index) => new { img, index }))
+                                                                    {
+                                                                        <div class="carousel-item @(image.index == 0 ? "active" : "")">
+                                                                            <!-- Sự kiện onclick để mở rộng ảnh trong modal -->
+                                                                            <img src="@image.img.ImageUrl" class="d-block w-100 rounded" alt="Product Image" onclick="openImageModal('@image.img.ImageUrl')" />
+                                                                        </div>
+                                                                    }
+                                                                </div>
+
+                                                                <!-- Các nút điều hướng Carousel -->
+                                                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel-@product.ProductId" data-bs-slide="prev">
+                                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Previous</span>
+                                                                </button>
+                                                                <button class="carousel-control-next" type="button" data-bs-target="#carousel-@product.ProductId" data-bs-slide="next">
+                                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                    <span class="visually-hidden">Next</span>
+                                                                </button>
+                                                            </div>
+                                                        }
+
+
+                                                        <div class="timeline-options mt-3">
+                                                            <a href="#"><i class="fa fa-thumbs-up"></i> Like</a>
+                                                            <a href="#"><i class="fa fa-comment"></i> Comment</a>
+                                                            <a href="#" onclick="toggleShareOptions(event)"><i class="fa fa-share"></i> Share</a>
+                                                            <div class="share-options d-none">
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="facebook"><i class="fa fa-facebook"></i> Facebook</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="twitter"><i class="fa fa-twitter"></i> Twitter</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="instagram"><i class="fa fa-instagram"></i> Instagram</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="line"><i class="fa fa-line"></i> Line</button>
+                                                                <button class="shareBtn" data-url="https://example.com/article" data-social="telegram"><i class="fa fa-telegram"></i> Telegram</button>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Các nút chia sẻ mạng xã hội -->
+                                                     
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    }
+                                </ul> *@
+                            }
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+                    <!-- Cột bên phải -->
+                    <div class="col-lg-12 col-xl-3">
+                        <div class="card card-white grid-margin">
+                            <div class="card-heading clearfix">
+                                <h4 class="card-title">Suggestions</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="team">
+                                    <!-- Đoạn mã như ban đầu để hiển thị gợi ý -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card card-white grid-margin">
+                            <div class="card-heading clearfix">
+                                <h4 class="card-title">Some Info</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                <p>Copyright © 2020 Evince All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal để hiển thị ảnh mở rộng -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img id="expandedImage" src="" class="img-fluid" alt="Expanded Product Image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Modal hiển thị ảnh -->
+    <div id="imageModal" class="image-modal">
+        <span onclick="document.getElementById('imageModal').style.display='none'" class="close-modal">&times;</span>
+        <img src="@(Model.Users.Avatar ?? "/avatar/default-avatar.png")" alt="Avatar" class="modal-image" />
+    </div>
+
+@* 
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/site.js"></script> *@
+
+
+
+
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script>
+        // Kết nối với SignalR Hub
+        var connection = new signalR.HubConnectionBuilder().withUrl("/documentHub").build();
+
+        connection.on("ReceiveUpdatedUserProfile", function (user) {
+            console.log("Received user data:", user);  // Log dữ liệu để xác nhận
+
+            // Cập nhật DOM với dữ liệu từ SignalR
+            document.querySelector("#fullname").innerText = user.fullname || "No Name";
+            document.querySelector("#email").innerText = user.email || "No Email";
+            document.querySelector("#phoneNumber").innerText = user.phoneNumber || "No Phone Number";
+            document.querySelector("#address").innerText = user.address || "No Address";
+        });
+
+
+
+        connection.on("ReceiveUpdatedProductDetail", function (product) {
+            console.log("Received product data:", product);
+
+            var productId = product.productId;
+            document.getElementById("productName-" + productId).innerText = product.productName || "N/A";
+            document.getElementById("productDescription-" + productId).innerText = product.description || "N/A";
+            document.getElementById("productQuantity-" + productId).innerText = "Quantity: " + (product.quantity || "N/A");
+            document.getElementById("productPrice-" + productId).innerText = "Price: " + (product.price ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(product.price) : "N/A");
+            document.getElementById("brandName-" + productId).innerText = "Brand: " + (product.brandName || "N/A");
+
+            // Cập nhật hình ảnh
+            var imageGallery = document.getElementById("imageGallery-" + productId);
+            imageGallery.innerHTML = ''; // Xóa ảnh hiện tại
+            product.imageUrls.forEach(function (url) {
+                var img = document.createElement("img");
+                img.src = url;
+                img.classList.add("slide_post");
+                img.alt = "Product Image";
+                imageGallery.appendChild(img);
+            });
+        });
+
+
+
+
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+    </script>
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Hiển thị hoặc ẩn tùy chọn cho avatar khi bấm vào ảnh
+        document.getElementById('avatar').onclick = function (event) {
+            const avatarOptions = document.getElementById('avatarOptions');
+            avatarOptions.style.display = avatarOptions.style.display === 'flex' ? 'none' : 'flex';
+            event.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+        };
+
+
+        function openImageModal(imageUrl) {
+            // Gán URL ảnh vào thẻ img trong modal
+            document.getElementById("expandedImage").src = imageUrl;
+            // Hiển thị modal
+            var myModal = new bootstrap.Modal(document.getElementById("imageModal"));
+            myModal.show();
+        }
+
+
+
+
+        // Ẩn các nút bấm nếu click ra ngoài avatar
+        document.addEventListener('click', function (event) {
+            const avatarOptions = document.getElementById('avatarOptions');
+            const avatar = document.getElementById('avatar');
+
+            if (avatarOptions.style.display === 'flex' && !avatar.contains(event.target)) {
+                avatarOptions.style.display = 'none';
+            }
+        });
+
+        // Xem ảnh to lên
+        function viewAvatar() {
+            const imageModal = document.getElementById('imageModal');
+            imageModal.style.display = 'flex'; // Sử dụng flex để canh giữa nội dung
+        }
+
+        // Đóng modal hiển thị ảnh khi nhấn vào dấu x hoặc bên ngoài modal
+        document.querySelector('.close-modal').onclick = function () {
+            document.getElementById('imageModal').style.display = 'none';
+        };
+
+        document.getElementById('imageModal').onclick = function (event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        };
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lặp qua tất cả các carousel trong trang (nếu có nhiều)
+            document.querySelectorAll('.carousel').forEach(carousel => {
+                carousel.addEventListener('slide.bs.carousel', function (event) {
+                    const productId = this.id.split('-')[1]; // Lấy ID sản phẩm từ carousel ID
+                    const indexElement = document.getElementById(`carousel-index-${productId}`);
+
+                    // Cập nhật chỉ số hiện tại (Bootstrap Carousel bắt đầu từ 0, nên cần +1)
+                    indexElement.textContent = event.to + 1;
+                });
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+        // Hàm để ẩn/hiện các tùy chọn chia sẻ khi nhấn vào "Share"
+        function toggleShareOptions(event) {
+            event.preventDefault();
+            var shareOptions = event.target.closest('.timeline-options').querySelector('.share-options');
+            shareOptions.classList.toggle('d-none');
+        }
+
+        // Hàm chia sẻ lên mạng xã hội
+        function shareOnSocial(event) {
+            var postUrl = event.target.getAttribute('data-url');
+            var socialNetwork = event.target.getAttribute('data-social');
+            var shareUrl;
+
+            switch (socialNetwork) {
+                case 'facebook':
+                    shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(postUrl);
+                    break;
+                case 'twitter':
+                    shareUrl = 'https://twitter.com/intent/tweet?url=' + encodeURIComponent(postUrl);
+                    break;
+                case 'instagram':
+                    alert('Instagram không hỗ trợ chia sẻ trực tiếp từ trang web. Vui lòng sử dụng ứng dụng di động.');
+                    return;
+                case 'line':
+                    shareUrl = 'https://lineit.line.me/share/ui?url=' + encodeURIComponent(postUrl);
+                    break;
+                case 'telegram':
+                    shareUrl = 'https://telegram.me/share/url?url=' + encodeURIComponent(postUrl);
+                    break;
+                default:
+                    shareUrl = '';
+            }
+
+            if (shareUrl !== '') {
+                window.open(shareUrl, socialNetwork + '-share-dialog', 'width=626,height=436');
+            }
+        }
+
+        // Gán sự kiện click cho các nút chia sẻ
+        document.addEventListener('DOMContentLoaded', function () {
+            var shareButtons = document.querySelectorAll('.shareBtn');
+            shareButtons.forEach(function (button) {
+                button.addEventListener('click', shareOnSocial);
+            });
+        });
+
+
+
+    </script>
+
+</body>
+</html>

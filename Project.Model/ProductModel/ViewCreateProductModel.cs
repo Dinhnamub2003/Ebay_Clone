@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Project.Data.Models;
+using Project.Model.UserModel;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -9,9 +11,7 @@ namespace Project.Model.ProductModel
         [Required]
         public string ProductName { get; set; } = null!;
 
-
         [Required(ErrorMessage = "Description must not empty.")]
-
         public string? Description { get; set; }
 
         [Required]
@@ -21,10 +21,16 @@ namespace Project.Model.ProductModel
         public string? BrandName { get; set; }
 
         [Required(ErrorMessage = "Please select a category.")]
-        public int? CategoryId { get; set; }  // Đảm bảo CategoryId có thể là null khi không chọn
+        public int? CategoryId { get; set; }
 
+        [Required(ErrorMessage = "Please enter a price.")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero.")]
+        public decimal Price { get; set; } // Giá bán
 
         // Lưu danh sách ảnh upload
         public List<IFormFile>? Images { get; set; }
+
+     
     }
+
 }

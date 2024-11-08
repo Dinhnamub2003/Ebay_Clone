@@ -235,15 +235,8 @@
                     <ul class="dropdown-menu" id="brandFilter"></ul>
                 </div>
                 <!-- Filter Brand Btn -->
-                <!-- Filter Color Btn -->
-                <div class="btn-group flex-grow-1 color" role="group">
-                    <button type="button" class="btn dropdown-toggle rounded-pill filterBtn" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                        Color
-                    </button>
-                    <ul class="dropdown-menu" id="colorFilter"></ul>
-                </div>
-                <!-- Filter Color Btn -->
+
+                
                 <!-- Filter Price Btn -->
                 <div class="btn-group flex-grow-1 price" role="group">
                     <button type="button" class="btn dropdown-toggle rounded-pill filterBtn" data-bs-toggle="dropdown"
@@ -294,30 +287,7 @@
                             aria-expanded="false">
                         Sort
                     </button>
-                    <ul class="dropdown-menu" id="sortFilter">
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sort" value="Name (A-Z)"
-                                           id="sortAsc" />
-                                    <label class="form-check-label" for="sortAsc">
-                                        Name (A-Z)
-                                    </label>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="sort" value="Name (Z-A)"
-                                           id="sortDesc" />
-                                    <label class="form-check-label" for="sortDesc">
-                                        Name (Z-A)
-                                    </label>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+                    
                 </div>
                 <!-- Filter Sort Btn -->
                 
@@ -343,33 +313,42 @@
     </main>
     <!-- End Main -->
     <main class="container-fluid">
-        <section class="container-fluid">
-            <!-- Product Filters and Sort options... -->
-            <!-- Product List Section -->
-            <section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4 productsContainer">
-                @if (Model.ProductViewModel != null && Model.ProductViewModel.Any())
+        <section class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 py-4 productsContainer">
+            @if (Model.ProductViewModel != null && Model.ProductViewModel.Any())
+            {
+                @foreach (var product in Model.ProductViewModel)
                 {
-                    @foreach (var product in Model.ProductViewModel)
-                    {
-                        <div class="col">
+                    <div class="col">
+                        <!-- Link to ProductDetail page with id parameter -->
+                        <a asp-page="./ProductDetail" asp-route-id="@product.ProductId" class="text-decoration-none text-dark">
                             <div class="card h-100">
-                                <img src="@product.FirstImageUrl" class="card-img-top" alt="@product.ProductName"
-                                     style="height: 200px; object-fit: cover;">
+                                <!-- Loop through ImageUrls to display each image -->
+                                @if (product.ImageUrls != null && product.ImageUrls.Any())
+                                {
+                                    @foreach (var imageUrl in product.ImageUrls)
+                                    {
+                                        <img src="@imageUrl" class="card-img-top mb-2" alt="@product.ProductName"
+                                             style="height: 200px; object-fit: cover;">
+                                    }
+                                }
                                 <div class="card-body">
                                     <h5 class="card-title">@product.ProductName</h5>
+                                    <p class="card-text">Price: @product.Price</p>
                                     <p class="card-text">Category: @product.CategoryName</p>
                                     <p class="card-text">Description: @product.Description</p>
                                     <p class="card-text">Quantity: @product.Quantity</p>
                                     <p class="card-text">Brand: @product.BrandName</p>
                                 </div>
                             </div>
-                        </div>
-                    }
+                        </a>
+                    </div>
                 }
-            
-            </section>
+            }
         </section>
+
     </main>
+
+
     <!-- Start Footer -->
     <!--  Start footer -->
     <hr />

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -21,14 +22,17 @@ namespace Project.Servie.Service.Auth
         private readonly IEmailSender _emailSender;
         private readonly ILogger<AuthService> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthService(IUnitOfWork unitOfWork, IEmailSender emailSender, ILogger<AuthService> logger, IConfiguration configuration)
+        public AuthService(IUnitOfWork unitOfWork, IEmailSender emailSender, ILogger<AuthService> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _unitOfWork = unitOfWork;
             _emailSender = emailSender;
             _logger = logger;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
+
 
         public async Task<string> LoginAsync(string username, string password)
         {
@@ -66,9 +70,17 @@ namespace Project.Servie.Service.Auth
                 _logger.LogWarning("Account is not verified. Verification email sent.");
                 return "Account is not verified. Please check your email to verify your account.";
             }
+          
+            // Lưu token vào session
+
+            // Lưu thêm thông tin người dùng vào session (UserId, Role, FullName, v.v.)
+           
 
             // Nếu đã xác minh, tạo JWT token
             var token = GenerateJwtToken(user, TimeSpan.FromMinutes(1440)); // Token expires in 24 hours
+           
+            _httpContextAccessor.HttpContext.Session.SetString("JWTToken", token);
+
             return token;
         }
 
@@ -335,14 +347,20 @@ namespace Project.Servie.Service.Auth
         {
             var secretKey = _configuration["JWT:Secret"];
 
-
-            var claims = new[]
-            {
+            // Khởi tạo danh sách Claims, bao gồm role
+            var claims = new List<Claim>
+    {
         new Claim(JwtRegisteredClaimNames.Sub, user.UserId.ToString()),
         new Claim(JwtRegisteredClaimNames.Email, user.Email),
-      new Claim(ClaimTypes.Role, user.Role?.RoleName ?? "User"),
+        new Claim(ClaimTypes.Name, user.Username),
         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
     };
+
+            // Thêm Claim cho Role nếu user có Role
+            if (!string.IsNullOrEmpty(user.Role?.RoleName))
+            {
+                claims.Add(new Claim(ClaimTypes.Role, user.Role.RoleName));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -352,8 +370,8 @@ namespace Project.Servie.Service.Auth
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.Add(tokenLifetime),
                 SigningCredentials = credentials,
-                Issuer = _configuration["JWT:ValidIssuer"], // Đảm bảo đúng Issuer
-                Audience = _configuration["JWT:ValidAudience"] // Đảm bảo đúng Audience
+                Issuer = _configuration["JWT:ValidIssuer"],
+                Audience = _configuration["JWT:ValidAudience"]
             };
 
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -361,6 +379,7 @@ namespace Project.Servie.Service.Auth
 
             return tokenHandler.WriteToken(token);
         }
+
 
     }
 }
