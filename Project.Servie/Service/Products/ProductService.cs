@@ -68,7 +68,8 @@ namespace Project.Servie.Service.Products
                     CreatedAt = p.CreatedAt,
                     Price = p.Price,
                     User = p.User,  // Gán đối tượng User đầy đủ
-                    CategoryId = p.CategoryId, // Thêm CategoryId ở đây
+                    CategoryId = p.CategoryId,
+                    // Thêm CategoryId ở đây
                     CategoryName = p.Category.CategoryName, // Ánh xạ CategoryName vào ProductDetailViewModel
                     ImageUrls = p.ProductImages.Select(i => i.ImageUrl).ToList()
                 })
@@ -257,6 +258,7 @@ namespace Project.Servie.Service.Products
                     CreatedAt = p.CreatedAt,
                     Price = (decimal)p.Price,
                     UserId = p.User.UserId,
+                    SellerName = p.User.Fullname,
                     ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                     CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                 })
@@ -280,6 +282,7 @@ namespace Project.Servie.Service.Products
                         CreatedAt = p.CreatedAt,
                         Price = (decimal)p.Price,
                         UserId = p.User.UserId,
+                        SellerName = p.User.Fullname,
                         ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                         CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                     })
@@ -301,6 +304,7 @@ namespace Project.Servie.Service.Products
                     BrandName = p.BrandName,
                     CreatedAt = p.CreatedAt,
                     UserId = p.User.UserId,
+                    SellerName = p.User.Fullname,
                     ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                     CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                 })
@@ -322,6 +326,7 @@ namespace Project.Servie.Service.Products
                         BrandName = p.BrandName,
                         CreatedAt = p.CreatedAt,
                         UserId = p.User.UserId,
+                        SellerName = p.User.Fullname,
                         ImageUrls = p.ProductImages.Select(i => i.ImageUrl).Take(1).ToList(),
                         CategoryName = p.Category != null ? p.Category.CategoryName : "No Category"
                     })

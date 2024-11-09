@@ -1,0 +1,56 @@
+﻿@page "/purchase"
+@model Project.RazorWeb.Pages.UserProfile.PurchaseListModel
+@{
+    ViewData["Title"] = "Purchase List";
+}
+
+<div class="container mt-4">
+    <h2>Your Purchase List</h2>
+
+    @if (Model.OrderList != null && Model.OrderList.Any())
+    {
+        <table class="table table-striped">
+            <thead class="thead-light">
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Order Date</th>
+                    <th>Order Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.OrderList)
+                {
+                    <tr>
+                        <td>@order.ProductName</td>
+                        <td>@order.Quantity</td>
+                        <td>@order.Price</td> <!-- Định dạng giá theo tiền tệ -->
+                        <td>@(order.Quantity * order.Price)</td> <!-- Tổng tiền cho sản phẩm -->
+                        <td>@order.CreatedAt</td> <!-- Định dạng ngày tháng -->
+                        <td>@order.OrderStatus</td>
+                        <td>
+                            @if (order.OrderStatus == "UnConfirmed")
+                            {
+                                <form method="post" asp-page-handler="Confirm">
+                                    <input type="hidden" name="orderId" value="@order.OrderId" />
+                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="text-success">Confirmed</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No purchases found.</p>
+    }
+</div>

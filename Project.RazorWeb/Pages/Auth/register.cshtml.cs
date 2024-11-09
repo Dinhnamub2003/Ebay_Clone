@@ -47,12 +47,12 @@ namespace Project.RazorWeb.Pages.Auth
         public async Task<IActionResult> OnPostAsync()
         {
             // Kiểm tra CAPTCHA
-            var storedCaptcha = HttpContext.Session.GetString("CaptchaCode");
-            if (string.IsNullOrEmpty(storedCaptcha) || CaptchaInput != storedCaptcha)
-            {
-                ModelState.AddModelError("CaptchaInput", "CAPTCHA không đúng.");
-                return Page();
-            }
+            //var storedCaptcha = HttpContext.Session.GetString("CaptchaCode");
+            //if (string.IsNullOrEmpty(storedCaptcha) || CaptchaInput != storedCaptcha)
+            //{
+            //    ModelState.AddModelError("CaptchaInput", "CAPTCHA không đúng.");
+            //    return Page();
+            //}
 
             // Kiểm tra mật khẩu và xác nhận mật khẩu
             if (Password != ConfirmPassword)

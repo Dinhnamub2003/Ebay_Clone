@@ -18,6 +18,26 @@ namespace Project.EventRazor.Hubs
             });
         }
 
+
+        public async Task SendProfileViewNotification(int userId, string viewerFullname)
+        {
+            var message = new
+            {
+                title = "New profile view",
+                message = $"{viewerFullname} has viewed your profile.",
+                createdAt = DateTime.Now
+            };
+
+            await Clients.User(userId.ToString()).SendAsync("ReceiveNotification", message);
+        }
+
+
+
+        public async Task SendNotificationToUser(int userId, string message)
+        {
+            await Clients.User(userId.ToString()).SendAsync("ReceiveNotification", message);
+        }
+
         public async Task UpdateProductDetail(int productId, string productName, string description, int quantity, decimal price, string brandName, string categoryName, List<string> imageUrls)
         {
             await Clients.All.SendAsync("ReceiveUpdatedProductDetail", new

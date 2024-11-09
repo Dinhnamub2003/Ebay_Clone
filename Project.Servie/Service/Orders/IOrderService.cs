@@ -10,10 +10,13 @@ namespace Project.Service.Service.Orders
 {
     public interface IOrderService
     {
-        Task<int> CreateOrderAsync(int userId, decimal totalAmount, string status = "Confirmed");
+        Task<int> CreateOrderAsync(int userId, decimal totalAmount, string status);
         Task AddOrderDetailsAsync(int orderId, List<OrderDetail> orderDetails);
         Task UpdateOrderStatusAsync(int orderId, string status);
-        Task<List<ViewOrderModel>> GetOrderByIdAsync(int orderId);
+        Task<Data.Models.Order> GetOrderByIdAsync(int orderId);
+        Task<List<ViewOrderModel>> GetOrderByUserIdAsync(int userId);
         Task UpdateOrderTotalAmountAsync(int orderId, decimal totalAmount);
+
+        Task UpdatePendingOrdersToConfirmedAsync();
     }
 }

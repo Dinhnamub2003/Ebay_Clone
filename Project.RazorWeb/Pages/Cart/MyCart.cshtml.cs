@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Project.Data.Models;
 using Project.Model.CartModel;
 using Project.Service.Service.Carts;
 using Project.Service.Service.Order;
 using Project.Service.Service.Orders;
+using Project.Service.Service.Wallets;
 using Project.Servie.Service.Products;
 using System.Security.Claims;
 
@@ -15,12 +17,13 @@ namespace Project.RazorWeb.Pages.Cart
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
         private readonly IOrderService _orderService;
-
-        public CartModel(ICartService cartService, IProductService productService, IOrderService orderService )
+        private readonly IWalletService _walletService;
+        public CartModel(ICartService cartService, IProductService productService, IOrderService orderService, IWalletService walletService )
         {
             _productService = productService;
             _cartService = cartService;
             _orderService = orderService;
+            _walletService = walletService;
         }
 
         public List<CartViewModel> Carts { get; set; }
@@ -72,20 +75,41 @@ namespace Project.RazorWeb.Pages.Cart
 
 		public async Task<IActionResult> OnPostUpdateQuantityAsync(int cartId, int quantity)
 		{
-			// Lấy cart item theo CartId và cập nhật quantity
+			var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+			if (string.IsNullOrEmpty(userIdClaim))
+			{
+				// If there's no user ID claim, redirect to the login page
+				return RedirectToPage("/auth/login");
+			}
+
+			var userId = int.Parse(userIdClaim);
+			Carts = await _cartService.GetCartByUserIdAsync(userId);
+			// Get the cart item by CartId
 			var cartItem = await _cartService.GetCartItemByIdAsync(cartId);
 			if (cartItem == null || cartItem.IsDeleted == true)
 			{
 				return NotFound();
 			}
 
-			// Cập nhật số lượng và lưu lại
+			// Get the available quantity for the specific cart item (not from all items)
+			var availableQuantity = Carts.FirstOrDefault()?.AvailableQuantity ?? 0; 
+
+			// Validate the quantity
+			if (quantity > availableQuantity || quantity <= 0)
+			{
+				// Save error message into TempData
+				TempData["ErrorMessage"] = $"Invalid quantity. Please enter a quantity between 1 and {availableQuantity}.";
+				return RedirectToPage();  // Redirect to the same page to allow the user to correct the input
+			}
+
+			// Update the quantity and save the changes
 			cartItem.Quantity = quantity;
 			await _cartService.UpdateCartAsync(cartItem);
 
-			// Reload lại trang để hiển thị số lượng mới
+			// Reload the page to reflect the updated quantity
 			return RedirectToPage();
 		}
+
 
 
 		public async Task<IActionResult> OnPostClearCartAsync()
@@ -128,7 +152,7 @@ namespace Project.RazorWeb.Pages.Cart
             decimal totalAmount = 0;
 
             // Create the Order and retrieve the order ID
-            var orderId = await _orderService.CreateOrderAsync(userId, totalAmount, "Confirmed");
+            var orderId = await _orderService.CreateOrderAsync(userId, totalAmount, "UnConfirmed");
 
             foreach (var cartItem in Carts)
             {
@@ -155,6 +179,17 @@ namespace Project.RazorWeb.Pages.Cart
 
                         await _orderService.AddOrderDetailsAsync(orderId, orderDetails);
                         await _productService.UpdateProductQuantityAsync(product.ProductId, (int)cartItem.Quantity);
+                        try
+                        {
+                            // Check if balance is sufficient and deduct it
+                            await _walletService.DeductBalanceAsync(userId, totalAmount);
+                        }
+                        catch (Exception ex)
+                        {
+                            TempData["Message"] = ex.Message;
+                            return RedirectToPage("/Wallet");
+                        }
+
                     }
                     else
                     {
@@ -166,15 +201,14 @@ namespace Project.RazorWeb.Pages.Cart
                     return RedirectToPage("/Error", new { message = $"Product not found for {cartItem.ProductName}" });
                 }
             }
-
-            // Update the order total price (it was updated in the loop)
-          await _orderService.UpdateOrderTotalAmountAsync(orderId, totalAmount);
+      
+            await _orderService.UpdateOrderTotalAmountAsync(orderId, totalAmount);
 
             // Clear the cart after the order is placed
             await _cartService.ClearCartAsync(userId);
 
             // Redirect to an order confirmation page
-            return RedirectToPage("/Cart/checkout");
+            return RedirectToPage("/Home/home");
         }
 
 

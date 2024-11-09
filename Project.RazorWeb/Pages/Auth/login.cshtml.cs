@@ -42,15 +42,15 @@ namespace Project.RazorWeb.Pages.Auth
         public async Task<IActionResult> OnPostAsync()
         {
 
-            var actualCaptcha = HttpContext.Session.GetString("CaptchaCode");
-            if (string.IsNullOrEmpty(actualCaptcha) || !_captchaService.ValidateCaptchaCode(CaptchaInput, actualCaptcha))
-            {
-                ErrorMessage = "Invalid CAPTCHA.";
-                return Page();
-            }
+            //var actualCaptcha = HttpContext.Session.GetString("CaptchaCode");
+            //if (string.IsNullOrEmpty(actualCaptcha) || !_captchaService.ValidateCaptchaCode(CaptchaInput, actualCaptcha))
+            //{
+            //    ErrorMessage = "Invalid CAPTCHA.";
+            //    return Page();
+            //}
 
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 var result = await _authService.LoginAsync(Username, Password);
 
                 if (result == "Account is not verified. Please check your email to verify your account.")
@@ -67,9 +67,9 @@ namespace Project.RazorWeb.Pages.Auth
 
                 // Nếu đăng nhập thành công, chuyển hướng đến trang chính
                 return RedirectToPage("/index");
-            }
+            //}
 
-            return Page();
+            //return Page();
         }
 
 

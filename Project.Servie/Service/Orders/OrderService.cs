@@ -20,7 +20,7 @@ namespace Project.Service.Service.Order
             _unitOfWork = unitOfWork;
 
         }
-        public async Task<int> CreateOrderAsync(int userId, decimal totalAmount, string status = "Confirmed")
+        public async Task<int> CreateOrderAsync(int userId, decimal totalAmount, string status )
         {
             var order = new Data.Models.Order
             {
@@ -45,7 +45,7 @@ namespace Project.Service.Service.Order
             foreach (var detail in orderDetails)
             {
                 detail.OrderId = orderId;
-                detail.CreatedAt = DateTime.UtcNow;
+                detail.CreatedAt = DateTime.Now;
                 _unitOfWork.OrderDetailRepository.Add(detail);
             }
 
@@ -66,10 +66,18 @@ namespace Project.Service.Service.Order
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<List<ViewOrderModel>> GetOrderByIdAsync(int orderId)
+        public async Task<Data.Models.Order> GetOrderByIdAsync(int orderId)
+        {
+            return await _unitOfWork.OrderRepository
+         .GetQuery()
+         .FirstOrDefaultAsync(c => c.OrderId == orderId && c.IsDeleted == false);
+        }
+
+        public async Task<List<ViewOrderModel>> GetOrderByUserIdAsync(int userid)
         {
             return await _unitOfWork.OrderDetailRepository.GetQuery()
-               .Where(od => od.OrderId == orderId)
+               .Where(od => od.Order.UserId == userid)
+               .OrderByDescending(od => od.CreatedAt)
                .Select(od => new ViewOrderModel
                {
                    OrderDetailId = od.OrderDetailId,
@@ -77,10 +85,33 @@ namespace Project.Service.Service.Order
                    Quantity = od.Quantity,
                    Price = od.Price,
                    OrderId = od.Order.OrderId,
-                   CreatedAt = od.CreatedAt
+                   CreatedAt = od.CreatedAt,
+                   ProductName = od.Product.ProductName,
+                   OrderStatus = od.Order.OrderStatus
                })
                .ToListAsync();
         }
+
+
+        public async Task UpdatePendingOrdersToConfirmedAsync()
+        {
+            var threeDaysAgo = DateTime.UtcNow.AddDays(-3);
+            var pendingOrders = await _unitOfWork.OrderRepository
+       .GetQuery()
+       .Where(o => o.OrderStatus != "Confirmed" && o.OrderDate <= threeDaysAgo && o.IsDeleted.GetValueOrDefault(false) == false)
+       .ToListAsync();
+
+
+            foreach (var order in pendingOrders)
+            {
+                order.OrderStatus = "Confirmed";
+                order.UpdatedAt = DateTime.UtcNow;
+                _unitOfWork.OrderRepository.Update(order);
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
 
         public async Task UpdateOrderTotalAmountAsync(int orderId, decimal totalAmount)
         {

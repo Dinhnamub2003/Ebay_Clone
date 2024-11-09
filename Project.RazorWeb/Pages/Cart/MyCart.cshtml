@@ -102,19 +102,20 @@
 										<div>
 											<input type="hidden" name="productId" value="@item.ProductId" /> <!-- Hidden input for Product ID -->
 											<p class="product-name"><strong>@item.ProductName</strong></p> <!-- Class for easy selector -->
-											<p class="product-price" style="color: red"> $@item.Price</p> <!-- Class for easy selector -->
+											<p class="product-price" style="color: red"> @item.Price.ToString("C0")</p> <!-- Class for easy selector -->
 											<p>@item.Description</p>
 											<p>AvailableQuantity: @item.AvailableQuantity</p>
 	
 										</div>
 												<form method="post" asp-page-handler="UpdateQuantity" asp-route-cartId="@item.CartId" class="mb-2">
 			<label>Quantity:</label>
-			<input type="number" name="quantity"
-				   min="1"
-				   max="@item.AvailableQuantity"
-				   value="@item.Quantity"
-				   required
-				   onchange="this.form.submit()" /> <!-- Gửi form mỗi khi thay đổi -->
+											<input type="number" name="quantity"
+												   min="1"
+												   max="@item.AvailableQuantity"
+												   value="@item.Quantity"
+												   required
+												   onchange="updateQuantityAndTotal(this, @item.AvailableQuantity)" />
+											 <!-- Gửi form mỗi khi thay đổi -->
 			<p class="text-danger quantity-error" style="display: none;">Quantity must be between 1 and @item.AvailableQuantity.</p>
 		</form>
 
@@ -168,7 +169,7 @@
 							<p>Subtotal</p>
 						</div>
 						<div class="col-4 text-right">
-							<p id="subtotalAmount">$@(Model.TotalPrice)</p>
+							<p id="subtotalAmount">@(Model.TotalPrice.ToString("C0"))</p>
 						</div>
 					</div>
 
@@ -270,9 +271,9 @@
 			document.querySelectorAll('.cart-item').forEach(item => {
 				const productId = item.querySelector('input[name="productId"]').value;
 				const productName = item.querySelector('.product-name').textContent;
-				const price = parseFloat(item.querySelector('.product-price').textContent.replace('$', ''));
+				const price = parseFloat(item.querySelector('.product-price').textContent.replace('đ', ''));
 				const quantity = parseInt(item.querySelector('input[name="quantity"]').value);
-
+					
 
 				// Add item details to the cartItems array
 				cartItems.push({
@@ -302,15 +303,16 @@
 
 			// Save the updated product list back to sessionStorage
 			sessionStorage.setItem('checkoutProducts', JSON.stringify(existingProducts));
-
+		
 			// Redirect to the checkout page
-			window.location.href = '/Checkout';
+			window.location.href = '/checkout';
 		}
 
 		function updateQuantityAndTotal(inputElement, availableQuantity) {
 			let quantity = parseInt(inputElement.value);
 			let errorMessage = inputElement.closest('form').querySelector('.quantity-error');
 			let checkoutButton = document.getElementById('go-to-checkout-btn');
+				 let form = inputElement.closest('form');
 			// Kiểm tra tính hợp lệ của quantity
 			if (quantity < 1 || quantity > availableQuantity || isNaN(quantity)) {
 				errorMessage.style.display = 'block';
@@ -322,6 +324,7 @@
 			errorMessage.style.display = 'none';
 			checkoutButton.disabled = false;
 			// Cập nhật lại giá trị total price và subtotal khi quantity thay đổi
+						form.submit();
 			updateTotalPrice();
 		}
 
@@ -331,7 +334,7 @@
 
 	// Lặp qua các sản phẩm trong giỏ hàng để tính subtotal và totalQuantity
 	document.querySelectorAll('.cart-item').forEach(item => {
-		const price = parseFloat(item.querySelector('.product-price').textContent.replace('$', ''));
+				const price = parseFloat(item.querySelector('.product-price').textContent.replace('đ', ''));
 		const quantity = parseInt(item.querySelector('input[name="quantity"]').value);
 
 		// Kiểm tra và tính subtotal và totalQuantity cho sản phẩm
@@ -342,7 +345,7 @@
 	});
 
 	// Cập nhật Subtotal và Total Price trong giao diện người dùng
-	document.getElementById('subtotalAmount').textContent = `$${subtotal.toFixed(2)}`;
+	document.getElementById('subtotalAmount').textContent = `${subtotal.toFixed(2)}`;
 	document.getElementById('realQty').textContent = totalQuantity; // Cập nhật lại tổng số lượng sản phẩm
 }
 

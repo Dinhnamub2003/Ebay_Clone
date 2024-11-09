@@ -414,6 +414,29 @@ namespace Project.Service.Service.Wallets
                 .FirstOrDefaultAsync(w => w.UserId == userId);
         }
 
+        public async Task DeductBalanceAsync(int userId, decimal amount)
+        {
+            // Lấy ví của người dùng dựa vào userId
+            var wallet = await _unitOfWork.WalletRepository
+        .GetQuery()
+        .FirstOrDefaultAsync(c => c.UserId == userId);
+            if (wallet == null)
+            {
+                throw new Exception("Wallet not found.");
+            }
+
+            // Kiểm tra nếu số dư đủ để trừ
+            if (wallet.Balance < amount)
+            {
+                throw new Exception("Insufficient balance.");
+            }
+
+            // Trừ số dư và lưu vào cơ sở dữ liệu
+            wallet.Balance -= amount;
+            _unitOfWork.WalletRepository.Update(wallet);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
 
     }
 }

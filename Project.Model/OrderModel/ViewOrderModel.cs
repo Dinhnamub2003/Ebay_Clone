@@ -23,6 +23,7 @@ namespace Project.Model.OrderModel
         public decimal TotalPrice => Quantity * Price;
         public int OrderDetailId { get; set; }
         public int ProductId { get; set; }
+        public string ProductName { get; set; }
         public virtual User? User { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }

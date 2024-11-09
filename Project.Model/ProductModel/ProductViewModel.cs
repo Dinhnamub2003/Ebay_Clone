@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Data.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace Project.Model.ProductModel
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public string SellerName { get; set; }
         public string? Description { get; set; }
         public int Quantity { get; set; }
         public string? BrandName { get; set; }
@@ -19,5 +21,6 @@ namespace Project.Model.ProductModel
 		public decimal Price { get; set; }
         public int UserId { get; set; }
         public List<string> ImageUrls { get; set; } = new List<string>();
+        public virtual User? User { get; set; }
     }
 }

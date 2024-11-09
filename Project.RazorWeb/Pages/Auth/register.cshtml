@@ -45,12 +45,7 @@
     </div>
 
     <!-- CAPTCHA -->
-    <div class="form-group">
-        <label for="captcha">Enter CAPTCHA</label>
-        <img src="/auth/register?handler=Captcha" alt="CAPTCHA Image" />
-        <input asp-for="CaptchaInput" class="form-control" placeholder="Enter the CAPTCHA" />
-        <span asp-validation-for="CaptchaInput" class="text-danger"></span>
-    </div>
+     
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 

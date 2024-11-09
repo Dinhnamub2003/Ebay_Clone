@@ -2,6 +2,8 @@
 @model Project.RazorWeb.Pages.Seller.ProductDetailModel
 @{
     ViewData["Title"] = "Product Details";
+    bool isOutOfStock = Model.Product.Quantity == 0;
+    bool isSeller = Model.CurrentUserId == Model.Product.User.UserId;
 }
 
 <div class="container">
@@ -28,7 +30,7 @@
         <div class="col-md-6">
             <div class="product-details mt-3">
                 <p><strong>Brand:</strong> @Model.Product.BrandName</p>
-                <p style="color: red;"><strong>Price:</strong> @Model.Product.Price</p>
+                <p style="color: red;"><strong>Price:</strong> @Model.Product.Price đ</p>
                 <p><strong>Description:</strong> @Model.Product.Description</p>
                 <p><strong>Quantity:</strong> @Model.Product.Quantity</p>
             </div>
@@ -36,21 +38,39 @@
             <div class="action-buttons mt-3">
                 <form method="post" asp-page="./ProductDetail">
                     <input type="hidden" name="CartsAdd.ProductId" value="@Model.Product.ProductId" />
-                    <div id="quantityMessage" style="color: red; font-size: 0.9rem; display: none; margin-top: 5px; margin-bottom: 10px;">
-                        The quantity exceeds available stock.
-                    </div>
-                    <div id="quantityError" style="color: red; font-size: 0.9rem; display: none; margin-top: 5px; margin-bottom: 15px;">
-                        Please enter a valid quantity.
-                    </div>
-                    <div class="input-group">
-                        <label for="Quantity">Quantity:</label>
-                        <input type="number" id="Quantity" name="CartsAdd.Quantity" min="1" value="1" class="form-control quantity-input" margin-top: -6px; margin-bottom: 10px;" oninput="checkQuantity()" />
-                    </div>
 
-                    <button type="submit" class="btn add-to-cart" style="margin-left:10px;">Add to Cart</button>
+                    @if (isOutOfStock)
+                    {
+                        <div class="out-of-stock-message" style="color: red; font-size: 1.1rem; margin-bottom: 10px;">
+                            Sold out products
+                        </div>
+                    }
+                    else if (isSeller)
+                    {
+                        <div class="self-purchase-message" style="color: red; font-size: 1.1rem; margin-bottom: 10px;">
+                            You cannot purchase your own product.
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="quantityMessage" style="color: red; font-size: 0.9rem; display: none; margin-top: 5px; margin-bottom: 10px;">
+                            The quantity exceeds available stock.
+                        </div>
+                        <div id="quantityError" style="color: red; font-size: 0.9rem; display: none; margin-top: 5px; margin-bottom: 15px;">
+                            Please enter a valid quantity.
+                        </div>
+                        <div class="input-group">
+                            <label for="Quantity">Quantity:</label>
+                            <input type="number" id="Quantity" name="CartsAdd.Quantity" min="1" value="1" class="form-control quantity-input" margin-top: -6px; margin-bottom: 10px;" oninput="checkQuantity()" />
+                        </div>
+
+                        <button type="submit" class="btn add-to-cart" style="margin-left:10px;">Add to Cart</button>
+                    }
                 </form>
-                <button class="btn buy-now" onclick="buyNow(@Model.Product.ProductId, '@Model.Product.ProductName', @Model.Product.Price)">Buy It Now</button>
-                <button class="btn add-to-watchlist">Add to Watchlist</button>
+
+                <!-- Disable 'Buy It Now' and 'Add to Watchlist' buttons if out of stock or user is the seller -->
+                <button class="btn buy-now" onclick="buyNow(@Model.Product.ProductId, '@Model.Product.ProductName', @Model.Product.Price)" @(isOutOfStock || isSeller ? "disabled" : "")>Buy It Now</button>
+                <button class="btn add-to-watchlist" @(isOutOfStock || isSeller ? "disabled" : "")>Add to Watchlist</button>
             </div>
         </div>
     </div>
@@ -131,7 +151,7 @@ function checkQuantity() {
     const requestedQuantity = parseInt(quantityInput.value);
 
     // Check if the quantity is empty or less than 1
-    if (quantityInput.value === "" || requestedQuantity < 1) {
+        if (quantityInput.value === "" || requestedQuantity < 1 ) {
         quantityError.style.display = 'inline'; // Show error if quantity is empty or invalid
         submitButton.disabled = true; // Disable Add to Cart button
         submitButton.style.cursor = 'not-allowed'; // Set forbidden cursor on the button
@@ -141,7 +161,7 @@ function checkQuantity() {
     }
 
     // Check if the quantity exceeds available stock
-    if (requestedQuantity > maxQuantity) {
+        if (requestedQuantity > maxQuantity ) {
         quantityMessage.style.display = 'block'; // Show quantity exceed message
         quantityInput.style.borderColor = 'red'; // Highlight input with red border
         submitButton.disabled = true; // Disable Add to Cart button

@@ -16,7 +16,7 @@
 
 <body style="font-family: Arial, Helvetica, sans-serif">
     <!-- Start Header -->
-    <!-- Start Header -->
+    <!-- Start Header --> 
     <div class="container">
         <div class="row custom-nav">
 
@@ -332,8 +332,17 @@
                                     }
                                 }
                                 <div class="card-body">
+
+
+                                    <p class="card-text">
+                                        Seller:
+                                        <a asp-page="/UserProfile/UserDetail" asp-route-id="@product.UserId" class="text-decoration-none">
+                                            @product.SellerName
+                                        </a>
+                                    </p>
+
                                     <h5 class="card-title">@product.ProductName</h5>
-                                    <p class="card-text">Price: @product.Price</p>
+                                    <p class="card-text">Price: @product.Price.ToString("C0")</p>
                                     <p class="card-text">Category: @product.CategoryName</p>
                                     <p class="card-text">Description: @product.Description</p>
                                     <p class="card-text">Quantity: @product.Quantity</p>

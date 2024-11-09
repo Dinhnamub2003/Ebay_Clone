@@ -2,6 +2,7 @@
 @model Project.RazorWeb.Pages.UserProfile.UserDetailModel
 @{
     ViewData["Title"] = "User Profile - Products and Information";
+    var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 }
 
 <!DOCTYPE html>
@@ -634,6 +635,7 @@
     </style>
 </head>
 <body>
+
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <div class="container">
         <div class="page-inner no-page-title">
@@ -653,7 +655,15 @@
                                          id="avatar" />
                                     <div id="avatarOptions" class="avatar-options" style="display: none;">
                                         <button onclick="viewAvatar()">Xem ảnh</button>
-                                        <button onclick="document.getElementById('fileInput').click()">Cập nhật ảnh</button>
+
+
+                                        @if (loggedInUserId != null && int.Parse(loggedInUserId) == Model.Users.UserId)
+                                        {
+                                            <button onclick="document.getElementById('fileInput').click()">Cập nhật ảnh</button>
+
+
+                                        }
+
                                         
                                     </div>
                                     <form method="post" enctype="multipart/form-data" asp-page-handler="UploadAvatar">
@@ -665,9 +675,12 @@
                                 <button class="btn btn-theme btn-sm">Follow</button>
                                 <button class="btn btn-theme btn-sm">Message</button>
 
-                                <a href="@Url.Page("/UserProfile/UpdateProfile", new { id = Model.Users.UserId })">
-                                    <button type="button">Cập nhật thông tin</button>
-                                </a>
+                                @if (loggedInUserId != null && int.Parse(loggedInUserId) == Model.Users.UserId)
+                                {
+                                    <a href="@Url.Page("/UserProfile/UpdateProfile", new { id = Model.Users.UserId })">
+                                        <button type="button">Cập nhật thông tin</button>
+                                    </a>
+                                }
                             </div>
                             <hr />
                             <div class="card-heading clearfix mt-3">
@@ -775,8 +788,15 @@
                                                         }
 
                                                         <div class="timeline-options mt-3">
-                                                            <a href="#"><i class="fa fa-thumbs-up"></i> Like</a>
-                                                            <a href="#"><i class="fa fa-comment"></i> Comment</a>
+
+
+                                                            @if (loggedInUserId != null && int.Parse(loggedInUserId) == Model.Users.UserId)
+                                                            {
+                                                                <a href="/updateProduct/@product.ProductId"><i class="fa fa-edit"></i> Edit</a>
+
+                                                            }
+
+
                                                             <a href="#" onclick="toggleShareOptions(event)"><i class="fa fa-share"></i> Share</a>
                                                             <div class="share-options d-none">
                                                                 <button class="shareBtn" data-url="https://example.com/article" data-social="facebook"><i class="fa fa-facebook"></i> Facebook</button>

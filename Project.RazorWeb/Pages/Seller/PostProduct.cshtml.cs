@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Project.RazorWeb.Pages.Seller
 {
-    [Authorize(Roles = "Admin")]
+
     public class PostProductModel : PageModel
     {
         private readonly IProductService _productService;
@@ -69,7 +69,7 @@ namespace Project.RazorWeb.Pages.Seller
                     }
                 }
 
-                return RedirectToPage("/Seller/ProductDetail", new { id = productId });
+                return RedirectToPage("/user/profile/", new { id = userId });
             }
             catch (Exception ex)
             {

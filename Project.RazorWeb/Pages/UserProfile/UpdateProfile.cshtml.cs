@@ -7,6 +7,7 @@ using Project.Data.Models;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.SignalR;
 using Project.EventRazor.Hubs;
+using System.Security.Claims;
 
 namespace Project.RazorWeb.Pages.UserProfile
 {
@@ -61,6 +62,12 @@ namespace Project.RazorWeb.Pages.UserProfile
 
         public async Task<IActionResult> OnPostUpdateProfileAsync()
         {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userIdClaim) || int.Parse(userIdClaim) != UserUpdateModel.UserId)
+            {
+                return Forbid();
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();

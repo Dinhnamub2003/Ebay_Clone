@@ -4,7 +4,6 @@
 @if (ViewData["Message"] != null)
 {
     <script>
-
         setTimeout(function () {
             Swal.fire({
                 title: 'Thông báo',
@@ -18,7 +17,7 @@
     </script>
 }
 
-<div class="container">
+<div class="update-profile-container">
     <h2>Update Profile</h2>
 
     @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"] as string))
@@ -26,67 +25,106 @@
         <div class="error-message">@ViewData["ErrorMessage"]</div>
     }
 
-    <form method="post" asp-page-handler="UpdateProfile">
-
-        <div>
-            <label>UserId</label>
-            <input type="text" asp-for="UserUpdateModel.UserId" />
-            <span asp-validation-for="UserUpdateModel.UserId" class="text-danger"></span>
+    <form method="post" asp-page-handler="UpdateProfile" class="profile-form">
+           <div class="form-group">
+            <input type="hidden" asp-for="UserUpdateModel.UserId" class="form-control"  />
         </div>
-
-        <div>
+        <div class="form-group">
             <label>Full Name</label>
-            <input type="text" asp-for="UserUpdateModel.Fullname" />
+            <input type="text" asp-for="UserUpdateModel.Fullname" class="form-control" required />
             <span asp-validation-for="UserUpdateModel.Fullname" class="text-danger"></span>
         </div>
-        <div>
+        <div class="form-group">
             <label>Email</label>
-            <input type="email" asp-for="UserUpdateModel.Email" />
+            <input type="email" asp-for="UserUpdateModel.Email" class="form-control" readonly />
             <span asp-validation-for="UserUpdateModel.Email" class="text-danger"></span>
         </div>
-        <div>
+        <div class="form-group">
             <label>Phone Number</label>
-            <input type="text" asp-for="UserUpdateModel.PhoneNumber" />
+            <input type="text" asp-for="UserUpdateModel.PhoneNumber" class="form-control" required />
             <span asp-validation-for="UserUpdateModel.PhoneNumber" class="text-danger"></span>
         </div>
-        <div>
+        <div class="form-group">
             <label>Address</label>
-            <input type="text" asp-for="UserUpdateModel.Address" />
+            <input type="text" asp-for="UserUpdateModel.Address" class="form-control"  required/>
             <span asp-validation-for="UserUpdateModel.Address" class="text-danger"></span>
         </div>
-        <button type="submit" class="save-button">Lưu</button>
+        <button type="submit" class="save-button">Save Changes</button>
     </form>
 </div>
 
-
-
-
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script> 
- <script src="~/js/site.js"></script> 
-
-
+<script src="~/js/site.js"></script> 
 
 <style>
-    .error-message {
-        color: red;
-        font-size: 1em;
-        margin-bottom: 10px;
+    /* Container styling */
+    .update-profile-container {
+        max-width: 500px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
     }
 
-    .save-button {
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        padding: 12px;
+    /* Heading styling */
+    .update-profile-container h2 {
+        text-align: center;
+        color: #333;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    /* Error message styling */
+    .error-message {
+        color: #d9534f;
         font-size: 1em;
-        border-radius: 5px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    /* Form styling */
+    .profile-form .form-group {
+        margin-bottom: 15px;
+    }
+
+    .profile-form label {
+        font-weight: bold;
+        color: #555;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .profile-form .form-control {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .profile-form .form-control:focus {
+        border-color: #5cb85c;
+        outline: none;
+        box-shadow: 0 0 5px rgba(92, 184, 92, 0.5);
+    }
+
+    /* Save button styling */
+    .save-button {
+        width: 100%;
+        padding: 12px;
+        background-color: #5cb85c;
+        color: #fff;
+        border: none;
+        font-size: 1.2em;
+        border-radius: 4px;
         cursor: pointer;
         transition: background-color 0.3s;
-        width: 100%;
-        margin-top: 20px;
     }
 
-        .save-button:hover {
-            background-color: #45a049;
-        }
+    .save-button:hover {
+        background-color: #4cae4c;
+    }
 </style>

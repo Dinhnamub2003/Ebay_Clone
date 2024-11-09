@@ -100,7 +100,7 @@ namespace Project.Servie.Service.Auth
             }
 
             // Hash password and create user
-            user.Password = CreatePasswordHash(password);
+            user.Password = password;
             var verificationCode = GenerateVerificationCode();
             user.Code = verificationCode;
             user.IsVerification = false;

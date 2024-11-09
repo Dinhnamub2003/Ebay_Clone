@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Project.Service.Service.Orders;
 using Project.Service.Service.Wallets;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,16 @@ public class BackgoundService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using var scope = _scopeFactory.CreateScope();
-        var service = scope.ServiceProvider.GetRequiredService<IWalletService>();
+        var service = scope.ServiceProvider.GetRequiredService<IOrderService>();
 
         while (!stoppingToken.IsCancellationRequested)
         {
             try
             {
-                await service.UpdateAllTransactionsStatusToFailedAsync();
-                
+                //await service.UpdateAllTransactionsStatusToFailedAsync();
+                await service.UpdatePendingOrdersToConfirmedAsync();
+
+
             }
             catch (Exception ex)
             {

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Project.RazorWeb.Pages.Seller
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class UpdateProductModel : PageModel
     {
         private readonly IProductService _productService;
@@ -77,6 +77,16 @@ namespace Project.RazorWeb.Pages.Seller
                 }
 
                 var userId = int.Parse(userIdClaim);
+
+                // Retrieve the product to check ownership
+                var existingProduct = await _productService.GetProductWithImagesAsync(id);
+                if (existingProduct == null || existingProduct.User.UserId != userId)
+                {
+                    TempData["ErrorMessage"] = "You are not authorized to update this product.";
+                    return Forbid(); // Or redirect to an error page as needed
+                }
+
+                // Proceed with updating the product
                 var imagesToKeep = Request.Form["ExistingImageUrls"].ToList();
                 var updated = await _productService.UpdateProductAsync(id, Product, Product.Images, imagesToKeep);
 
@@ -84,7 +94,7 @@ namespace Project.RazorWeb.Pages.Seller
                 {
                     var updatedProduct = await _productService.GetProductWithImagesAsync(id);
 
-                    // Gửi thông tin cập nhật bao gồm CategoryName đến client qua SignalR
+                    // Send updated product details to clients via SignalR
                     await _hubContext.Clients.All.SendAsync("ReceiveUpdatedProductDetail", new
                     {
                         ProductId = updatedProduct.ProductId,
@@ -93,7 +103,7 @@ namespace Project.RazorWeb.Pages.Seller
                         Quantity = updatedProduct.Quantity,
                         Price = updatedProduct.Price,
                         BrandName = updatedProduct.BrandName,
-                        CategoryName = updatedProduct.CategoryName, // Thêm CategoryName
+                        CategoryName = updatedProduct.CategoryName,
                         ImageUrls = updatedProduct.ImageUrls
                     });
 
@@ -104,7 +114,7 @@ namespace Project.RazorWeb.Pages.Seller
                     TempData["ErrorMessage"] = "Product not found or update failed.";
                 }
 
-                return RedirectToPage("/Seller/ProductDetail", new { id });
+                return RedirectToPage();
             }
             catch (Exception ex)
             {
@@ -113,6 +123,11 @@ namespace Project.RazorWeb.Pages.Seller
                 return Page();
             }
         }
+
+
+
+
+
 
 
     }

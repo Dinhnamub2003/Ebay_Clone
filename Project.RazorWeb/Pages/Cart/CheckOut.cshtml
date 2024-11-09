@@ -57,17 +57,6 @@
                         <div class="paymentMethod1">
                             <input type="radio" name="paymentMethod" class="radioButton" id="newCardOption">
                             <label for="newCardOption"><b>Add new card</b></label>
-                            <div class="row">
-                                <div class="col-1">
-                                    <img src="../Assets/Visa.svg.webp" alt="">
-                                </div>
-                                <div class="col-1">
-                                    <img src="../Assets/mastercard-logo-01.png" alt="">
-                                </div>
-                                <div class="col-1">
-                                    <img src="../Assets/images.png" alt="">
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <hr>
@@ -76,6 +65,13 @@
                             <input type="radio" name="paymentMethod" class="radioButton">
                             <b>PayPal</b>
                             <img src="../Assets/paypal.png" alt="">
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row payment-options">
+                        <div class="paymentMethod4">
+                            <input type="radio" name="paymentMethod" class="radioButton" id="newCardOption">
+                            <label for="newCardOption"><b>Pay by balance (Your balance: @Model.Balance.ToString("C0"))</b></label>
                         </div>
                     </div>
                     <hr>
@@ -137,87 +133,7 @@
                 </div>
                 <!-- the end of the payment options -->
                 <br>
-                <!-- the start of the form -->
-                <div class="row justify-content-center">
-                    <div class="form-container">
-                        <div class="col-4">
-                            <h2>Ship To</h2>
-                        </div>
-                        <form id="checkoutForm">
-                            <div class="row">
-                                <div class="col-8">
-                                    <div class="form-group" style="width: 350px;">
-                                        <label for="country">Country or region</label>
-                                        <select id="country" name="country">
-                                            <option value="Egypt">Egypt</option>
-                                            <option value="USA">USA</option>
-                                            <option value="UK">UK</option>
-                                            <option value="Iraq">Iraq</option>
-                                            <!-- Add more options as needed -->
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="firstName">First name</label>
-                                    <input style="width: 350px;" pattern="[A-Za-z]+" type="text" id="firstName" name="firstName">
-                                </div>
-                                <div class="col-6">
-                                    <label for="lastName">Last name</label>
-                                    <input style="width: 350px;" pattern="[A-Za-z]+" type="text" id="lastName" name="lastName">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="streetAddress">Street address</label>
-                                    <input style="width: 350px;" type="text" id="streetAddress" name="streetAddress">
-                                </div>
-                                <div class="col-6">
-                                    <label for="streetAddress2">Street address 2 (optional)</label>
-                                    <input style="width: 350px;" type="text" id="streetAddress2" name="streetAddress2">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <label for="city">City</label>
-                                    <input type="text" id="city" name="city">
-                                </div>
-                                <div class="col-4">
-                                    <label for="state">State/Province/Region</label>
-                                    <input style="width: 140;" type="text" id="state" name="state">
-                                </div>
-                                <div class="col-4">
-                                    <label for="zipCode">ZIP code</label>
-                                    <input type="text" id="zipCode" pattern="\d{4}" name="zipCode">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <label for="countryCode">Country Code</label>
-                                    <select style="width: 350px;" id="countryCode" name="countryCode">
-                                        <option value="+20">Egypt (+20)</option>
-                                        <option value="+1">USA (+1)</option>
-                                        <option value="+44">UK (+44)</option>
-                                        <!-- Add more options as needed -->
-                                    </select>
-                                </div>
-                                <div class="col-6">
-                                    <label for="phoneNumber">Phone number (required)</label>
-                                    <input style="width: 350px;" pattern="[0-9]+" type="tel" id="phoneNumber" name="phoneNumber">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Save">
-                                <!-- <button id="cancelButton" type="button">Cancel</button> -->
-                                <input type="submit" value="Cancel" id="cancelButton">
-                                <input type="button" value="Edit" id="editButton" style="display: none;">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <!-- the end of the form here -->
+               
                 <br>
                 <!-- the start of review part -->
                 <div class="row">
@@ -242,21 +158,23 @@
                                             let quantity = 0;
 
                                             checkoutProducts.forEach((item, index) => {
-                                                // Remove the quantity dropdown and just display the quantity
+                                                // Render the product details
                                                 checkoutDetails.innerHTML += `
-                                                        <div>
-                                                            <p><strong>Product Name:</strong> ${item.name}</p>
-                                                            <p><strong>Price:</strong> $${item.price.toFixed(2)}</p>
-                                                            <p><strong>Quantity:</strong> ${item.quantity}</p> <!-- Display the quantity -->
-                                                            <button onclick="removeProduct(${index})" class="btn btn-danger btn-sm">Remove</button>
-                                                            <hr>
-                                                        </div>
-                                                    `;
+                                                    <div>
+                                                        <p><strong>Product Name:</strong> ${item.name}</p>
+                                                        <p><strong>Price:</strong> ${item.price.toFixed(3)}đ</p>
+                                                        <p><strong>Quantity:</strong> ${item.quantity}</p>
+                                                        <button onclick="removeProduct(${index})" class="btn btn-danger btn-sm">Remove</button>
+                                                        <hr>
+                                                    </div>
+                                                `;
+                                                // Calculate total without using toFixed
                                                 total += item.price * item.quantity;
                                                 quantity += item.quantity;
                                             });
 
-                                            totalAmount.textContent = `$${total.toFixed(2)}`;
+                                            // Display total amount and quantity
+                                            totalAmount.textContent = `${total.toFixed(3)}đ`;
                                             realQty.textContent = quantity;
 
                                             // Save updated product list to sessionStorage
@@ -264,11 +182,8 @@
                                         }
 
                                         window.removeProduct = function (index) {
-                                            // Ask for confirmation before removing the product
                                             const confirmRemove = window.confirm('Are you sure you want to remove this product?');
-
                                             if (confirmRemove) {
-                                                // If confirmed, remove the product from the array
                                                 checkoutProducts.splice(index, 1);
                                                 renderCheckout(); // Refresh the checkout view
                                             }
@@ -276,6 +191,7 @@
 
                                         renderCheckout(); // Initial render of checkout details
                                     });
+
                                     document.querySelector('form[method="post"]').addEventListener('submit', function () {
     // Clear checkout session data after the form is submitted (order confirmed)
     sessionStorage.removeItem('checkoutProducts');
@@ -316,9 +232,41 @@
                     </div>
                     <br>
                     <div class="row">
-                         <form method="post" asp-page="/cart/mycart" asp-page-handler="ConfirmOrder">
-    <button type="submit" class="btn btn-primary rounded-pill center-button">Confirm and Pay</button>
-</form>
+    <form method="post" asp-page="/cart/mycart" asp-page-handler="ConfirmOrder" onsubmit="return confirmPayment()">
+        <button type="submit" class="btn btn-primary rounded-pill center-button">Confirm and Pay</button>
+    </form>
+</div>
+
+<script>
+    // Hàm xác nhận thanh toán
+
+    function confirmPayment() {
+        // Hiển thị hộp thoại xác nhận thanh toán
+        const isConfirmed = confirm("Are you sure you want to pay for those items?");
+
+        // Nếu người dùng nhấn OK (xác nhận thanh toán)
+        if (isConfirmed) {
+            // Xóa sản phẩm khỏi sessionStorage sau khi thanh toán thành công
+            sessionStorage.removeItem('checkoutProducts');
+            
+            // Hiển thị thông báo thanh toán thành công
+            alert("Payment successful! Your order has been confirmed.");
+            
+            // Chuyển hướng về trang chủ sau khi thanh toán thành công
+            window.location.href = '/purchase'; // Chuyển hướng về trang chủ (hoặc trang khác nếu cần)
+            
+            // Thực hiện submit form (chỉ khi thanh toán thành công)
+            return true; // Form sẽ được gửi đi và xử lý trên server
+        } else {
+            // Nếu người dùng nhấn Cancel, không gửi form và hiển thị thông báo
+            alert("Payment was not successful. Please try again.");
+            return false; // Không gửi form nếu thanh toán không thành công
+        }
+    }
+</script>
+
+
+
 
                     </div>
                     <div class="row">
@@ -334,14 +282,6 @@
                 function checkForms() {
                     var checkoutFormSubmitted = document.getElementById('checkoutForm').submitted;
                     var cardFormSubmitted = document.getElementById('cardForm').submitted;
-
-                    // If both forms are submitted, enable the "Confirm and Pay" button
-                    if (checkoutFormSubmitted && cardFormSubmitted) {
-                        document.getElementById('confirm').disabled = false;
-                    }
-                   // Clear the checkout session storage after confirming order
-
-
 
                 }
             </script>

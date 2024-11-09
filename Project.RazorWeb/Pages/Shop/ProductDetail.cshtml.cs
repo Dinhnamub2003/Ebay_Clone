@@ -23,8 +23,13 @@ namespace Project.RazorWeb.Pages.Seller
         public ProductDetailViewModel Product { get; set; }
         [BindProperty]
         public ViewCreateCartModel CartsAdd { get; set; }
+        public int? CurrentUserId { get; set; }
         public async Task<IActionResult> OnGetAsync(int id)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                CurrentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            }
             Product = await _productService.GetProductWithImagesAsync(id);
             if (Product == null)
             {

@@ -1,5 +1,6 @@
 ﻿@page "/home"
 @model Project.RazorWeb.Pages.Auth.Home.homeModel
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Antiforgery
 @{
 }
 
@@ -13,10 +14,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/Homepage.css">
     <link rel="Icon" href="https://pages.ebay.com/favicon.ico" />
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
     <style>
         .dropdown-toggle {
             background-color: #f8f9fa;
@@ -27,6 +35,85 @@
         .dropdown-menu-1 .dropdown-item:hover {
             background-color: #e2e6ea;
         }
+
+
+
+
+
+        .notification-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .notification-list {
+            position: absolute;
+            right: 0;
+            margin-top: 10px;
+            padding: 10px 0;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 320px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none; /* Ngăn thao tác khi danh sách ẩn */
+        }
+
+        .notification-container.active .notification-list {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Cho phép thao tác khi danh sách hiển thị */
+        }
+
+        .notification-header {
+            padding: 10px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+            .notification-item:hover {
+                background-color: #f9f9f9;
+            }
+
+            .notification-item.unread {
+                font-weight: bold;
+                background-color: #f3f9ff;
+                color: #333;
+            }
+
+            .notification-item.read {
+                color: #666;
+                background-color: #fff;
+            }
+
+        .notification-title {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .notification-message {
+            font-size: 14px;
+            color: #666;
+            margin: 5px 0;
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+        }
     </style>
 </head>
 <body>
@@ -35,42 +122,22 @@
     <div class="container">
         <div class="row custom-nav">
 
-            <span id="logorreg" class="col-auto">Hi! <a onclick="login()" class="logorreg">Sign in</a> or <a onclick="register()" class="logorreg">register</a></span>
-            <a class="col-auto custom-link" onclick="fetchCategory(16)">Daily Deals</a>
-            <a class="col-auto custom-link" href="">Help & Contact</a>
+            <div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <span>Hi, <a href="/user/profile/@Model.UserId"><strong>@Model.UserName</strong></a></span>
+                    <span style="float: right;">Your Balance: <strong>@Model.Balance.ToString("C0")</strong></span>
 
-            <a class="nav-spacing col-auto custom-link" href="">Ship to</a>
-            <a class="col-auto custom-link" onclick="fetchCategory(17)">Sell</a>
-            <div class="col-auto">
-                <a href="/pages/dashboard.html" class=" custom-nav" type="button">
-                    Watchlist
-                </a>
-                <!-- <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul> -->
-            </div>
-            <div class="dropdown col-auto">
-                <button class="btn dropdown-toggle custom-nav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    My eBay
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Summary</a></li>
-                    <li><a class="dropdown-item" href="#">Recently Viewed</a></li>
-                    <li><a class="dropdown-item" href="#">Bids/Offers</a></li>
-                    <li><a class="dropdown-item" href="#">Watchlist</a></li>
-                    <li><a class="dropdown-item" href="#">Purchase History</a></li>
-                    <li><a class="dropdown-item" href="#">Buy Again</a></li>
-                    <li><a class="dropdown-item" href="#">Selling</a></li>
-                    <li><a class="dropdown-item" href="#">Saved Searches</a></li>
-                    <li><a class="dropdown-item" href="#">Saved Sellers</a></li>
-                    <li><a class="dropdown-item" href="#">Messages</a></li>
-                </ul>
-            </div>
 
-            <img style="width: 45px; height: 30px;" src="Assets/images/bell .svg" alt="">
-            <img style="width: 45px; height: 30px;" src="Assets/images/cart.svg"  alt="">
+                }
+                else
+                {
+                    <span>Hi! <a href="/auth/login">Sign in</a> or <a href="/auth/register">register</a></span>
+                }
+            </div>
+            
+           
+
         </div>
     </div>
 
@@ -90,92 +157,28 @@
 
 
 
-            <button class="btn dropdown-toggle custom-category-button col-auto" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span>Shop by</span><br>
-                <span>Category</span>
+            <button class="btn  custom-category-button col-auto" type="button" aria-expanded="false">
+               
             </button>
-            <ul class="dropdown-menu col-lg-6">
-                <div class="custom-cont">
+            <div class="dropdown col-auto">
+                <button class="btn dropdown-toggle custom-nav" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    My eBay
+                </button>
+                <ul class="dropdown-menu">
+             
+                    <li><a class="dropdown-item" href="/user/profile/@Model.UserId">Selling</a></li>
+                    <li><a class="dropdown-item" href="/purchase">Purchase History</a></li>
+                </ul>
+            </div>
 
-                    <div class="row custom-style-dropdown">
-                        <div class=" col-lg-4">
-                            <h6>Collectibles & art</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Collectibles</a></p>
-                            <p><a href="" class="custom-link">Antiques</a></p>
-                            <p><a href="" class="custom-link">Sports memorabilia</a></p>
-                            <p><a href="" class="custom-link">Art</a></p>
+            
+            <script>
+                document.querySelector('.dropdown-toggle').addEventListener('click', function () {
+                    var dropdownMenu = this.nextElementSibling;
+                    dropdownMenu.classList.toggle('show');
+                });
 
-                            <h6>Electronics</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Computers & tablets</a></p>
-                            <p><a href="" class="custom-link">Cameras & photo</a></p>
-                            <p><a href="" class="custom-link">TV, audio & surveillance</a></p>
-                            <p><a href="" class="custom-link">Cell phones & accessories</a></p>
-
-                            <h6>Fashion</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Women</a></p>
-                            <p><a href="" class="custom-link">Men</a></p>
-                            <p><a href="" class="custom-link">Jewelry & watches</a></p>
-                            <p><a href="" class="custom-link">Shoes</a></p>
-
-                        </div>
-
-                        <div class=" col-lg-4">
-                            <h6>Home & garden</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Yard, garden & outdoor</a></p>
-                            <p><a href="" class="custom-link">Crafts</a></p>
-                            <p><a href="" class="custom-link">Home improvement</a></p>
-                            <p><a href="" class="custom-link">Pet supplies</a></p>
-
-                            <h6>Auto Parts & Accessories</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">GPS & Security Devices</a></p>
-                            <p><a href="" class="custom-link">Radar & Laser Detectors</a></p>
-                            <p><a href="" class="custom-link">Care & Detailing</a></p>
-                            <p><a href="" class="custom-link">Scooter Parts & Accessories</a></p>
-
-                            <h6>Musical instruments & gear</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Guitar</a></p>
-                            <p><a href="" class="custom-link">Pro audio equipment</a></p>
-                            <p><a href="" class="custom-link">String</a></p>
-                            <p><a href="" class="custom-link">Stage lighting & effects</a></p>
-
-
-                        </div>
-
-                        <div class=" col-lg-4">
-                            <h6>Sporting goods</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Outdoor sports</a></p>
-                            <p><a href="" class="custom-link">Team sports</a></p>
-                            <p><a href="" class="custom-link">Exercise & fitness</a></p>
-                            <p><a href="" class="custom-link">Golf</a></p>
-
-                            <h6>Toys & hobbies</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Radio control</a></p>
-                            <p><a href="" class="custom-link">Kids toys</a></p>
-                            <p><a href="" class="custom-link">Action figures</a></p>
-                            <p><a href="" class="custom-link">Dolls & bears</a></p>
-
-                            <h6>Other categories</h6>
-                            <hr>
-                            <p><a href="" class="custom-link">Video games & consoles</a></p>
-                            <p><a href="" class="custom-link">Health & beauty</a></p>
-                            <p><a href="" class="custom-link">Baby</a></p>
-                            <p><a href="" class="custom-link">Business & industrial</a></p>
-
-
-                        </div>
-
-                    </div>
-                </div>
-            </ul>
-
+            </script>
             <form method="get" asp-page="/Shop/productList" class="col-lg-8" role="search">
                 <div class="input-group">
                     <!-- Search Input -->
@@ -212,9 +215,43 @@
 
 
 
+            <div class="notification-container">
+                <img style="width: 45px; height: 30px; cursor: pointer;" src="Assets/images/bell .svg" alt="Thông báo" onclick="toggleNotificationList()">
+
+                <span id="unread-count" style="position: absolute; top: 5px; background-color: red; color: white; border-radius: 50%; padding: 5px; font-size: 12px;">
+                    @if (Model.UnreadNotificationCount > 0)
+                    {
+                        @Model.UnreadNotificationCount
+                    }
+                </span>
+
+
+                <div id="notification-list" class="notification-list">
+                    <div class="notification-header">Thông báo</div>
+
+                    @if (Model.Notifications.Count == 0)
+                    {
+                        <p class="notification-empty">Không có thông báo nào</p>
+                    }
+                    else
+                    {
+                        @foreach (var notification in Model.Notifications)
+                        {
+                            <div class="notification-item @(notification.IsRead == true ? "read" : "unread")">
+                                <p class="notification-title">@notification.Title</p>
+                                <p class="notification-message">@notification.Message</p>
+                                <small class="notification-time">@notification.CreatedAt?.ToString("dd/MM/yyyy HH:mm")</small>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+
 
             <div class="col-lg-1">
-                <a href="" style="font-size: 12px;">Advanced</a>
+                <a href="/mycart">
+                    <img style="width: 45px; height: 30px;" src="Assets/images/cart.svg" alt="My Cart">
+                </a>
             </div>
         </div>
     </div>
@@ -974,6 +1011,137 @@
             document.getElementById("categoryDropdownButton").innerText = name; // Update dropdown button text
         }
     </script>
+
+
+
+
+
+    <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+    <script>
+        // Kết nối với SignalR Hub
+        var connection = new signalR.HubConnectionBuilder().withUrl("/documentHub").build();
+
+
+        const requestVerificationToken = '@Antiforgery.GetAndStoreTokens(HttpContext).RequestToken';
+
+        function toggleNotificationList() {
+            const notificationContainer = document.querySelector('.notification-container');
+            notificationContainer.classList.toggle('active');
+        }
+
+        // Ẩn danh sách khi nhấp ra ngoài
+        document.addEventListener('click', function (event) {
+            const notificationContainer = document.querySelector('.notification-container');
+            if (!notificationContainer.contains(event.target)) {
+                notificationContainer.classList.remove('active');
+            }
+        });
+
+
+
+
+
+        document.querySelector('.notification-container img').addEventListener('click', async function () {
+            try {
+                const response = await fetch('/home?handler=MarkAllNotificationsAsRead', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': requestVerificationToken
+                    }
+                });
+
+                if (response.ok) {
+                    // Xóa chỉ số thông báo chưa đọc
+                    document.getElementById('unread-count').textContent = '';
+
+                    // Cập nhật giao diện, xóa class "unread" khỏi tất cả thông báo
+                    document.querySelectorAll('.notification-item.unread').forEach(item => {
+                        item.classList.remove('unread');
+                        item.classList.add('read');
+                    });
+
+                    // Xóa dấu hiệu có thông báo mới ở biểu tượng chuông
+                    document.querySelector('.notification-container img').classList.remove('new-notification');
+                }
+            } catch (error) {
+                console.error('Error marking notifications as read:', error);
+            }
+        });
+
+
+
+        // Khi có thông báo từ SignalR
+        connection.on("ReceiveNotification", function (data) {
+
+
+            const unreadCountElement = document.getElementById('unread-count');
+            const currentUnreadCount = parseInt(unreadCountElement.textContent) || 0;
+            unreadCountElement.textContent = currentUnreadCount + 1;
+
+
+            const notificationList = document.getElementById('notification-list');
+
+            // Tạo phần tử thông báo mới với cấu trúc HTML tương ứng
+            const notificationItem = document.createElement('div');
+            notificationItem.classList.add('notification-item', 'unread');
+
+            // Tạo phần tử tiêu đề
+            const notificationTitle = document.createElement('p');
+            notificationTitle.classList.add('notification-title');
+            notificationTitle.textContent = data.title || "New profile view"; // Tiêu đề
+
+            // Tạo phần tử thông điệp
+            const notificationMessage = document.createElement('p');
+            notificationMessage.classList.add('notification-message');
+            notificationMessage.textContent = data.message || "Someone has viewed your profile."; // Nội dung thông báo
+
+            // Tạo phần tử thời gian
+            const notificationTime = document.createElement('small');
+            notificationTime.classList.add('notification-time');
+            const notificationDate = new Date(data.createdAt || Date.now());
+            notificationTime.textContent = notificationDate.toLocaleString('vi-VN', {
+                day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+            }); // Định dạng thời gian
+
+            // Thêm các phần tử vào thông báo mới
+            notificationItem.appendChild(notificationTitle);
+            notificationItem.appendChild(notificationMessage);
+            notificationItem.appendChild(notificationTime);
+
+            // Thêm thông báo mới vào đầu danh sách thông báo
+            notificationList.prepend(notificationItem);
+
+            // Hiển thị biểu tượng chuông có dấu hiệu có thông báo mới nếu danh sách hiện đang ẩn
+            const bellIcon = document.querySelector('.notification-container img');
+            if (!notificationList.classList.contains('active')) {
+                bellIcon.classList.add('new-notification');
+            }
+
+            // Hiển thị thông báo pop-up với SweetAlert2
+            Swal.fire({
+                title: data.title || "New profile view",
+                text: data.message || "Someone has viewed your profile.",
+                icon: 'info',
+                confirmButtonText: 'OK',
+                timer: 15000, // Thời gian hiển thị 15 giây
+                timerProgressBar: true
+            });
+        });
+
+        connection.start().catch(function (err) {
+            return console.error(err.toString());
+        });
+
+
+
+
+
+
+    </script>
+
+
+
 
 </body>
 </html>

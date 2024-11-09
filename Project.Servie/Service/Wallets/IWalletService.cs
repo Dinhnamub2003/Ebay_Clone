@@ -22,5 +22,6 @@ namespace Project.Service.Service.Wallets
     
 
         Task<IEnumerable<Transaction>> GetTransactionsByStatusAsync(string status);
+        Task DeductBalanceAsync(int userId, decimal amount);
     }
 }
